@@ -1,0 +1,24 @@
+{
+  "name": "redballoon",
+  "version": "1.0.0",
+  "authors": [
+    "Mike Solomon <mike@mikesolomon.org>"
+  ],
+  "description": "Bower files for the red balloon",
+  "main": "app.js",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.7",
+    "font-awesome": "~4.6.3",
+    "fittext": "*"
+  }
+}

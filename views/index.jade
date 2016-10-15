@@ -1,0 +1,47 @@
+extends layout
+block content
+  .container
+    h1= title
+    div.flex-h.margin-top-15
+      div.flex-hchild
+        button.btn.btn-primary.btn-lg revenir en arrière
+      div.flex-hchild
+        button.btn.btn-primary.btn-lg avancer
+      div.flex-hchild
+        button.btn.btn-primary.btn-lg (re)commencer
+      div.flex-hchild
+        button.btn.btn-primary.btn-lg stop
+      div.flex-hchild
+        button.btn.btn-primary.btn-lg mise en veille
+    div.row
+      div.col-md-5
+        h2 maintenant
+      div.col-md-2
+      div.col-md-5
+        h2 prochainement
+    div.row
+      div.col-md-5.bg-now.text-center
+        p#now= now
+        script.
+          window.fitText( document.getElementById("now"), 0.5 );
+      div.col-md-2
+      div.col-md-5.bg-next.text-center
+        p#next= next
+        script.
+          window.fitText( document.getElementById("next"), 0.5 );
+    div.row
+      div.col-md-5.bg-now.text-center
+        h3= nowText
+      div.col-md-2
+      div.col-md-5.bg-next.text-center
+        h3= nextText
+    div.row.margin-top-30.text-center
+      each val in [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12]
+        div.col-md-1
+          form(method='post' action='/' id='form'+val)
+            input(type='hidden' name='top' value=val)
+          button.btn.btn-secondary.btn-lg(type='submit' form='form'+val value='Submit')= val
+    div.row.margin-top-10.text-center
+      each val in [13, 14, 15, 16]
+        div.col-md-1
+          button.btn.btn-secondary.btn-lg= val
