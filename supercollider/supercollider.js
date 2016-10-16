@@ -22,10 +22,13 @@ var opdone = function(server, i) {
 
 var init = function() {
   return supercolliderjs.server.boot().then(function(server) {
+    console.log("server booted");
     return supercolliderjs.lang.boot()
       .then(function(sclang) {
+        console.log("lang booted");
         return Promise.all(synthdefs.map(def => sclang.interpret(def)))
           .then(function(result) {
+            console.log("all synthdefs sent");
             return result.reduce((pre, cur) =>
                 pre.then(() =>
                   opdone(server, ['/d_recv', Buffer.from(cur)])),

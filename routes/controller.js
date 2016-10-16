@@ -1,12 +1,19 @@
 // @flow
 var express = require('express');
-var PubSub = require('pubsub-js');
+var states = require('./../state/states');
+var state = require('./../state/state');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('controller',{now:0,next:1});
-  PubSub.publish( 'MY TOPIC', 'hello world!' );
+  state.get().then(function(st) {
+    if (st.sc == null) {
+      console.log('loading main page');
+      res.render('loading');
+    } else {
+      console.log('rendering controller page '+st.top);
+      res.render('controller', {now:st.top,nowText:'foo'});
+    }
+  });
 });
-
 module.exports = router

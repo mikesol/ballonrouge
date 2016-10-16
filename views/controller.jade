@@ -6,10 +6,13 @@ html
     link(rel='stylesheet', href='/stylesheets/bg.css')
     link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap-theme.min.css')
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/socket-init.js")
   body
     div.wrapper
       div.top.text-center.bg-now
+        div.spacer
         h1.yuuuge= now
-        h1 some= nowText
+        h1= nowText
       div.bottom.text-center.bg-next
         h1.yuge.down back

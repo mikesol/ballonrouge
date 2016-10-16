@@ -3,6 +3,8 @@ var express = require('express');
 var supercollider = require('./../supercollider/supercollider');
 var PubSub = require('pubsub-js');
 var router = express.Router();
+var states = require('./../state/states');
+var state = require('./../state/state');
 
 const title = 'Le ballon rouge';
 const tops = [
@@ -23,19 +25,7 @@ const tops = [
   'La lampe se transforme en pont',
 ];
 
-const states = {
-  STAGED: 0,
-  PAUSED: 1,
-  PLAYING: 2,
-  STOPPED: 3
-}
-
-const state = {
-  top: 0,
-  verb: states.STOPPED
-};
-
-var render = function(res) {
+var render = function(res, state) {
   res.render('index', {
     title: title,
     now: state.top,
@@ -77,36 +67,26 @@ var render = function(res) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('loading');
-  supercollider.init().then(function(sc) {
-    process.once('SIGUSR2', function() {
-      sc.sclang.quit();
-      sc.server.quit();
-      process.kill(process.pid, 'SIGUSR2');
-    });
-    router.post('/', function(req, res) {
-      var top = 0;
-      if (req.body.top !== null) {
-        top = parseInt(req.body.top);
-      }
-      var verb = states.STOPPED;
-      if (req.body.state !== null) {
-        verb = parseInt(req.body.state);
-      }
-      state.top = top;
-      state.verb = verb;
-      render(res);
-      // create a function to subscribe to topics
-      var mySubscriber = function(msg, data) {
-        console.log(msg, data);
-      };
-
-      // add the function to the list of subscribers for a particular topic
-      // we're keeping the returned token, in order to be able to unsubscribe
-      // from the topic later on
-      var token = PubSub.subscribe('MY TOPIC', mySubscriber);
-    });
-    res.io.emit('loaded', true);
+  state.get().then(function(st) {
+    if (st.sc == null) {
+      console.log('loading main page');
+      res.render('loading');
+      supercollider.init().then(function(sc) {
+        process.once('SIGUSR2', function() {
+          sc.sclang.quit();
+          sc.server.quit();
+          process.kill(process.pid, 'SIGUSR2');
+        });
+        state.set({
+          verb: states.STOPPED,
+          top: 0,
+          sc: sc
+        });
+      });
+    } else {
+      console.log('rendering main page');
+      render(res, st);
+    }
   });
 });
 
