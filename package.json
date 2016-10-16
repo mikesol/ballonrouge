@@ -5,11 +5,10 @@
   "scripts": {
     "start": "node ./bin/www",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "bower install"
   },
   "dependencies": {
     "async-lock": "^0.3.8",
-    "bower": "0.6.x",
     "body-parser": "~1.15.1",
     "cookie-parser": "^1.4.3",
     "debug": "~2.2.0",
