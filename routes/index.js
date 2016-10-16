@@ -7,23 +7,7 @@ var states = require('./../state/states');
 var state = require('./../state/state');
 
 const title = 'Le ballon rouge';
-const tops = [
-  'Entrée public',
-  'Balançoire',
-  'Carrefour',
-  'Prise en main du ballon',
-  'Première ville',
-  'Le garçon relâche le ballon',
-  'Fenêtres',
-  'Assis sur le ballon',
-  'Il perd son ballon',
-  'Traversée magique du ballon',
-  'Deuxième ville',
-  'Il fout le bordel dans l\'immeuble',
-  'Fin du bordel',
-  'Son ami la lampe le sauve',
-  'La lampe se transforme en pont',
-];
+var tops = require('./../consts/scenes');
 
 var render = function(res, state) {
   res.render('index', {

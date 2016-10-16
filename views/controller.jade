@@ -1,18 +1,14 @@
-doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/controller.css')
-    link(rel='stylesheet', href='/stylesheets/bg.css')
-    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap-theme.min.css')
-    script(src="/socket.io/socket.io.js")
-    script(src="/javascripts/socket-init.js")
-  body
-    div.wrapper
-      div.top.text-center.bg-now
-        div.spacer
+extends controllerlayout
+block content
+  div.fullscreen(ng-app="" ng-init="clicked=false")
+    div.col-md-12.text-center.bg-now.mainbutton
+      div.tbcell(
+        onclick = 'setstate({top:'+(now + 1)+',verb:'+states.STOPPED+'})'
+        ng-click="clicked=true")
         h1.yuuuge= now
         h1= nowText
-      div.bottom.text-center.bg-next
-        h1.yuge.down back
+        p {{foo}}
+    block bottomrow
+    div.fullscreen(
+      style="position:absolute;top:0;background-color:pink;"
+      ng-style="{opacity : clicked ? '0.5' : '0.0', 'pointer-events': clicked ? 'auto' : 'none'}")
