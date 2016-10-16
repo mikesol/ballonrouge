@@ -7,6 +7,12 @@
 var app = require('../app').app;
 var debug = require('debug')('redballoon:server');
 var http = require('http');
+var args = require('minimist')(process.argv.slice(2));
+
+if (args.m === 'true') {
+  console.log('mocking supercollider');
+  require('../supercollider/supercollider').mock(true);
+}
 
 /**
  * Get port from environment and store in Express.

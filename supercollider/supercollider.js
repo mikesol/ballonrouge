@@ -20,7 +20,28 @@ var opdone = function(server, i) {
   });
 }
 
+var mock = {
+  mock: false
+}
+
+var mocksclang = {
+  quit: () => null
+}
+
+var mockscsynth = {
+  quit: () => null
+}
+
+
 var init = function() {
+  if (mock.mock) {
+    console.log('returning empty promise');
+    return Promise.resolve(null).then(() =>
+      Promise.resolve({
+        sclang: mocksclang,
+        server: mockscsynth
+      }));
+  }
   return supercolliderjs.server.boot().then(function(server) {
     console.log("server booted");
     return supercolliderjs.lang.boot()
@@ -43,5 +64,6 @@ var init = function() {
 }
 
 module.exports = {
-  init: init
+  init: init,
+  mock: () => mock.mock = true
 };
