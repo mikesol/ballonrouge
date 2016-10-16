@@ -1,6 +1,5 @@
 // @flow
 var express = require('express');
-var states = require('./../state/states');
 var state = require('./../state/state');
 var router = express.Router();
 var tops = require('./../consts/scenes');
@@ -16,7 +15,8 @@ router.get('/', function(req, res, next) {
       res.render('controllerdev', {
         now: st.top,
         nowText: tops[st.top],
-        states: states
+        states: require('./../state/states'),
+        nav: require('./../nav/nav')(st)
       });
     }
   });

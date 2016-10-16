@@ -20,32 +20,7 @@ var render = function(res, state) {
     range: Array(tops.length)
       .fill(null)
       .reduce((pre, cur) => pre.concat([pre.length]), []),
-    topmatter: [{
-      i: 0,
-      text: 'revenir en arrière',
-      top: Math.max(state.top - 1, 0),
-      verb: states.STAGED
-    }, {
-      i: 1,
-      text: 'avancer',
-      top: Math.min(state.top + 1, tops.length - 1),
-      verb: states.STAGED
-    }, {
-      i: 2,
-      text: '(re)commencer',
-      top: state.top,
-      verb: states.STAGED
-    }, {
-      i: 3,
-      text: 'stop',
-      top: state.top,
-      verb: states.STOPPED
-    }, {
-      i: 4,
-      text: 'mise en veille',
-      top: state.top,
-      verb: states.PAUSED
-    }]
+    nav: require('./../nav/nav.js')(state)
   });
 }
 

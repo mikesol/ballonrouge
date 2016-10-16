@@ -3,7 +3,8 @@ block content
   .container
     h1= title
     div.flex-h.margin-top-15
-      each val in topmatter
+      each i in [0,1,2,3,4]
+        - var val = nav[i]
         div.flex-hchild
           button.btn.btn-primary.btn-lg(
             onclick = 'setstate({top:'+val.top+',verb:'+val.verb+'})'
