@@ -1,0 +1,38 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.yuuuge {
+    font-size: 1000%;
+}
+
+.yuge {
+    font-size: 400%;
+}
+
+.wrapper {
+  min-width:100%;
+  min-height: 100%;
+}
+
+.top {
+  position: absolute;
+  top: 0%;
+  width:100%;
+  height: 75%;
+}
+
+.bottom {
+  position: absolute;
+  width:100%;
+  top: 75%;
+  height: 25%;
+}
+
+.down {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}

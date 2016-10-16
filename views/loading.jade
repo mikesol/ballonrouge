@@ -1,0 +1,18 @@
+extends layout
+block content
+  .container
+    div.flex-h
+      div.flex-hspace
+      div.flex-hchild
+        div.uil-default-css.uil-scaler
+          each i in [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
+            div(class='uil-'+i)
+      div.flex-hspace
+    form(method='post' action='/' id='loadedForm')
+      input(type='hidden' name='top' value=0)
+    script(src="/socket.io/socket.io.js")
+    script.
+      var socket = io('//localhost:3000');
+      socket.on('loaded', function (loaded) {
+        document.getElementById('loadedForm').submit();
+      });
