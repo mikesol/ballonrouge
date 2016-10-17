@@ -1,2 +1,2 @@
-sclang: /Applications/SuperCollider/SuperCollider.app/Contents/Resources/sclang
-scsynth: /Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth
+sclang: ./scmacbin/Resources/sclang
+scsynth: ./scmacbin/Resources/scsynth
