@@ -2,38 +2,35 @@ extends layout
 block content
   .container
     h1= title
-    div.flex-h.margin-top-15
+    div.row
       each i in [0,1,2,3,4]
         - var val = nav[i]
-        div.flex-hchild
-          button.btn.btn-primary.btn-lg(
+        div.col-md-2.col-sm-3.col-xs-4.margin-top-05
+          button.btn.btn-primary.btn-lg.fa.fa-2x(class='fa-'+val.fa
             onclick = 'setstate({top:'+val.top+',verb:'+val.verb+'})'
-            )= val.text
+            )
     div.row
-      div.col-md-5
-        h2 maintenant
-      div.col-md-2
-      div.col-md-5
-        h2 prochainement
-    div.row
-      div.col-md-5.bg-now.text-center
-        p#now= now
-        script.
-          window.fitText( document.getElementById("now"), 0.5 );
-      div.col-md-2
-      div.col-md-5.bg-next.text-center
-        p#next= next
-        script.
-          window.fitText( document.getElementById("next"), 0.5 );
-    div.row
-      div.col-md-5.bg-now.text-center
-        h3= nowText
-      div.col-md-2
-      div.col-md-5.bg-next.text-center
-        h3= nextText
+      -
+        var directives = [
+          {a:'maintenant', b:'now', c:now, d:nowText},
+          {a:'prochainement', b:'next', c:next, d:nextText}
+          ]
+      each i in [0, 1]
+        - var directive = directives[i] 
+        div.col-md-5
+          div
+            h2= directive.a
+          div.text-center(class="bg-"+directive.b)
+            p(id=directive.b)=directive.c 
+            h3= directive.d
+            br
+          script.
+            window.fitText( document.getElementById("#{directive.b}"), 0.5 );
+        if i == 0
+          div.col-md-2
     div.row.margin-top-15.text-center
       each val in range
-        div.col-md-1.margin-top-15
+        div.col-md-1.col-sm-2.col-xs-4.margin-top-15
           button.btn.btn-secondary.btn-lg(
             onclick = 'setstate({top:'+val+',verb:'+states.STOPPED+'})'
             )= val
