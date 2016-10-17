@@ -80,7 +80,7 @@ var slaveio = null;
 
 var slavize = function(addr) {
   state.slave = true;
-  slaveio = require('socket.io')(addr);
+  slaveio = require('socket.io-client')(addr);
   slaveio.on(DELTA, writeToStateObject);
 }
 

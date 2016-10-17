@@ -18,7 +18,7 @@ if (args.m === 'true') {
 // s = slave
 if (args.s != null) {
   console.log('acting as a slave to '+args.s);
-  require('../state/state').slave(arg.s);
+  require('../state/state').slave(args.s);
 }
 
 /**
