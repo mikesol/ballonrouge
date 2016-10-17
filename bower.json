@@ -21,6 +21,7 @@
     "font-awesome": "~4.6.3",
     "fittext": "*",
     "angular": "~1.5.8",
-    "angular-socket-io": "^0.7.0"
+    "angular-socket-io": "^0.7.0",
+    "osc.js": "^2.1.0"
   }
 }

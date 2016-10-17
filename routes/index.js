@@ -1,16 +1,15 @@
-// @flow
+// @flow weak
 var express = require('express');
 var supercollider = require('./../supercollider/supercollider');
 var PubSub = require('pubsub-js');
-var router = express.Router();
 var states = require('./../state/states');
 var state = require('./../state/state');
 
 const title = 'Le ballon rouge';
 var tops = require('./../consts/scenes');
 
-var render = function(res, state) {
-  res.render('index', {
+var render = function(res, template, state) {
+  res.render(template, {
     title: title,
     now: state.top,
     next: state.top >= tops.length - 1 ? 'fin' : state.top + 1,
@@ -24,29 +23,32 @@ var render = function(res, state) {
   });
 }
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  state.get().then(function(st) {
-    if (st.sc == null) {
-      console.log('loading main page');
-      res.render('loading');
-      supercollider.init().then(function(sc) {
-        process.once('SIGUSR2', function() {
-          sc.sclang.quit();
-          sc.server.quit();
-          process.kill(process.pid, 'SIGUSR2');
+var masterslave = function(master) {
+  var router = express.Router();
+  /* GET home page. */
+  return router.get('/', function(req, res, next) {
+    state.get().then(function(st) {
+      if (st.sc == null) {
+        console.log('loading main page');
+        res.render('loading');
+        supercollider.init().then(function(sc) {
+          process.once('SIGUSR2', function() {
+            sc.sclang.quit();
+            sc.server.quit();
+            process.kill(process.pid, 'SIGUSR2');
+          });
+          console.log("setting sc");
+          state.set({
+            sc: sc
+          });
+          console.log("sc set");
         });
-        state.set({
-          verb: states.STOPPED,
-          top: 0,
-          sc: sc
-        });
-      });
-    } else {
-      console.log('rendering main page');
-      render(res, st);
-    }
+      } else {
+        console.log('rendering main page');
+        render(res, master ? 'index' : 'indexslave', st);
+      }
+    });
   });
-});
+}
 
-module.exports = router
+module.exports = masterslave
