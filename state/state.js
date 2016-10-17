@@ -17,8 +17,11 @@ var state = {
   initialized: false
 };
 
-var io = function() {
-  state.io.emit(DELTA, true);
+var emitdelta = function() {
+  state.io.emit(DELTA, {
+    top: state.top,
+    verb: state.verb
+  });
 }
 
 const DELTA = 'delta';
@@ -31,59 +34,75 @@ var initialize = function(st) {
   st.initialized = true;
   return client.getAsync(TOP)
     .then((top) => {
-      console.log("GET top="+top);
+      console.log("GET top=" + top);
       st.top = isNaN(parseInt(top, 10)) ? 0 : parseInt(top, 10);
       return client.getAsync(VERB)
     })
     .then((verb) => {
-      console.log("GET verb="+verb);
+      console.log("GET verb=" + verb);
       st.verb = isNaN(parseInt(verb, 10)) ? states.STOPPED : parseInt(verb, 10);
       return state;
     });
 }
 
+var writeToStateObject = function(all) {
+  state.top = all.top == null ?
+    state.top :
+    all.top < 0 ?
+    0 :
+    all.top >= scenes.length - 1 ?
+    scenes.length - 1 :
+    all.top;
+  state.verb = all.verb == null ? state.verb : all.verb;
+  console.log("SETTING STATE top=" + state.top + " verb=" + state.verb + " input top=" + all.top + " input verb=" + all.verb);
+  client.setAsync(TOP, state.top)
+    .then(() => client.setAsync(VERB, state.verb));
+  emitdelta();
+}
+
+var writeToMaster = function(all) {
+  slaveio.emit(SETSTATE, all);
+}
+
 var setstate = function(all) {
-  console.log('setting state with all.top='+all.top+" and all.verb="+all.verb);
+  console.log('setting state with all.top=' + all.top + " and all.verb=" + all.verb);
   lock.acquire(DELTA, () => {
     initialize(state);
-    state.top = all.top == null ?
-      state.top :
-      all.top < 0 ?
-      0 :
-      all.top >= scenes.length - 1 ?
-      scenes.length - 1 :
-      all.top;
-    state.verb = all.verb == null ? state.verb : all.verb;
-    state.sc = all.sc == null ? state.sc : all.sc;
-    console.log("SETTING STATE top="+state.top+" verb="+state.verb+" input top="+all.top+" input verb="+all.verb);
-    client.setAsync(TOP, state.top)
-      .then(() => client.setAsync(VERB, state.verb));
-    io();
+    if (slaveio) {
+      writeToMaster(all);
+    } else {
+      writeToStateObject(all);
+    }
   });
 };
 
-var initialized = false;
+var slaveio = null;
+
+var slavize = function(addr) {
+  state.slave = true;
+  slaveio = require('socket.io')(addr);
+  slaveio.on(DELTA, writeToStateObject);
+}
+
+var ioize = function(io) {
+  if (state.io == null) {
+    state.io = io;
+    io.on('connection', function(socket) {
+      socket.on(SETSTATE, setstate);
+    });
+  }
+}
 
 module.exports = {
-  io: (io) => lock.acquire(DELTA, () => {
-    if (state.io == null) {
-      state.io = io;
-      io.on('connection', function(socket) {
-        socket.on(SETSTATE, setstate);
-      });
-    }
-  }),
-  get: () => lock.acquire(DELTA, () => {
-    return initialize(state);
-  }),
+  io: (io) => lock.acquire(DELTA, () => ioize(io)),
+  slave: (addr) => lock.acquire(DELTA, () => slavize(addr)),
+  get: () => lock.acquire(DELTA, () => initialize(state)),
   top: (top) => setstate({
     top: top
   }),
   verb: (verb) => setstate({
     verb: verb
   }),
-  sc: (sc) => setstate({
-    sc: sc
-  }),
+  sc: (sc) => lock.acquire(DELTA, () => state.sc = sc),
   set: setstate
 };

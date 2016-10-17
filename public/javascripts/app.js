@@ -2,17 +2,19 @@
 angular.module('redballoon', [
   'btford.socket-io'
 ]).
-factory('socketToMe', function (socketFactory) {
+factory('socketToMe', function(socketFactory) {
   return socketFactory();
 }).
-controller('MainCtrl', function ($scope, socketToMe) {
+controller('MainCtrl', function($scope, socketToMe) {
 
   $scope.clicked = false;
 
-  socketToMe.on('delta', function () {
+  socketToMe.on('delta', function() {
     $scope.clicked = true;
     $scope.$apply();
-    setTimeout(function(){window.location.reload();},50);
+    setTimeout(function() {
+      window.location.reload();
+    }, 50);
 
   });
 
