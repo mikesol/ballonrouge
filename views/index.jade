@@ -1,36 +1,40 @@
 extends layout
 block content
-  .container
-    h1= title
-    div.row
-      each i in [0,1,2,3,4]
-        - var val = nav[i]
-        div.col-md-2.col-sm-3.col-xs-4.margin-top-05
-          button.btn.btn-primary.btn-lg.fa.fa-2x(class='fa-'+val.fa
-            onclick = 'setstate({top:'+val.top+',verb:'+val.verb+'})'
-            )
-    div.row
-      -
-        var directives = [
-          {a:'maintenant', b:'now', c:now, d:nowText},
-          {a:'prochainement', b:'next', c:next, d:nextText}
-          ]
-      each i in [0, 1]
-        - var directive = directives[i] 
-        div.col-md-5
-          div
-            h2= directive.a
-          div.text-center(class="bg-"+directive.b)
-            p(id=directive.b)=directive.c 
-            h3= directive.d
-            br
-          script.
-            window.fitText( document.getElementById("#{directive.b}"), 0.5 );
-        if i == 0
-          div.col-md-2
-    div.row.margin-top-15.text-center
-      each val in range
-        div.col-md-1.col-sm-2.col-xs-4.margin-top-15
-          button.btn.btn-secondary.btn-lg(
-            onclick = 'setstate({top:'+val+',verb:'+states.STOPPED+'})'
-            )= val
+  div(ng-app="redballoon" ng-controller="MainCtrl")
+    .container
+      h1= title
+      div.row
+        each i in [0,1,2,3,4]
+          - var val = nav[i]
+          div.col-md-2.col-sm-3.col-xs-4.margin-top-05
+            button.btn.btn-primary.btn-lg.fa.fa-2x(class='fa-'+val.fa
+              ng-click = 'setstate({top:'+val.top+',verb:'+val.verb+'})'
+              )
+      div.row
+        -
+          var directives = [
+            {a:'maintenant', b:'now', c:now, d:nowText},
+            {a:'prochainement', b:'next', c:next, d:nextText}
+            ]
+        each i in [0, 1]
+          - var directive = directives[i] 
+          div.col-md-5
+            div
+              h2= directive.a
+            div.text-center(class="bg-"+directive.b)
+              p(id=directive.b)=directive.c 
+              h3= directive.d
+              br
+            script.
+              window.fitText( document.getElementById("#{directive.b}"), 0.5 );
+          if i == 0
+            div.col-md-2
+      div.row.margin-top-15.text-center
+        each val in range
+          div.col-md-1.col-sm-2.col-xs-4.margin-top-15
+            button.btn.btn-secondary.btn-lg(
+              ng-click = 'setstate({top:'+val+',verb:'+states.STOPPED+'})'
+              )= val
+    div.fullscreen(
+      style="position:absolute;top:0;background-color:pink;width:100%;height:100%;margin:0;"
+      ng-style="{opacity : clicked ? '0.5' : '0.0', 'pointer-events': clicked ? 'auto' : 'none'}")
