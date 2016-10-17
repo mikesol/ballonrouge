@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "./node_modules/flow-remove-types/flow-node ./bin/www",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "postinstall": "bower install"
   },
@@ -23,5 +23,9 @@
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.5.0",
     "supercolliderjs": "^0.12.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-latest": "^6.16.0"
   }
 }

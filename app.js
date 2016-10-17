@@ -10,7 +10,6 @@ var supercollider = require('./supercollider/supercollider');
 
 var routes = require('./routes/index');
 var controller = require('./routes/controller');
-var controllerdev = require('./routes/controllerdev');
 var states = require('./state/states')
 
 var app = express();
@@ -38,8 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', routes);
-app.use('/prod', controller);
-app.use('/dev', controllerdev);
+app.use('/prod', controller(true));
+app.use('/dev', controller(false));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

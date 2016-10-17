@@ -1,1 +1,1 @@
-web: node bin/www -m true
+web: ./node_modules/flow-remove-types/flow-node ./bin/www -m true
