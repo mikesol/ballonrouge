@@ -13,11 +13,17 @@ let mainWindow
 let www
 
 ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg)  // prints "ping"
+  console.log(arg) // prints "ping"
   event.sender.send('asynchronous-reply', 'pong')
   if (arg == 'go') {
     www = require('child_process').spawn('node', ['./bin/www']);
-    setTimeout(()=>mainWindow.loadURL('http://localhost:3000'), 4000);
+    setTimeout(() => mainWindow.loadURL('http://localhost:3000'), 4000);
+  } else if (arg == 'pull') {
+    require('simple-git')(__dirname)
+      .pull(function(err, update) {
+        app.relaunch();
+        app.exit();
+      });
   }
 })
 
@@ -39,7 +45,9 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
     console.log("killing");
-    www.kill('SIGHUP');
+    if (www != null) {
+      www.kill('SIGHUP');
+    }
   })
 }
 
