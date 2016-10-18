@@ -7,16 +7,31 @@ const app = electron.app
   // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+const yaml = require('js-yaml');
+const fs = require('fs');
+const pkill = require('pkill');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let www
+let heroku
+let herokuargs = [];
+
+try {
+  heroku = yaml.safeLoad(fs.readFileSync(__dirname + "/.herokuaddr.yaml", 'utf8')).addr;
+  console.log(heroku);
+} catch (e) {
+  console.log(e);
+}
 
 ipcMain.on('asynchronous-message', (event, arg) => {
   console.log(arg) // prints "ping"
   event.sender.send('asynchronous-reply', 'pong')
   if (arg == 'go') {
-    www = require('child_process').spawn('node', ['./bin/www']);
+    www = require('child_process').spawn('node', ['./bin/www'].concat(herokuargs), {
+      stdio: ['inherit', 'inherit', 'inherit']
+    });
     setTimeout(() => mainWindow.loadURL('http://localhost:3000'), 4000);
   } else if (arg == 'pull') {
     require('simple-git')(__dirname)
@@ -24,6 +39,10 @@ ipcMain.on('asynchronous-message', (event, arg) => {
         app.relaunch();
         app.exit();
       });
+  } else if (arg == 'follow') {
+    herokuargs = ['-s', heroku];
+  } else if (arg == 'lead') {
+    herokuargs = [];
   }
 })
 
@@ -35,8 +54,8 @@ function createWindow() {
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
-  //mainWindow.webContents.openDevTools()
-  // and load the index.html of the app.
+  mainWindow.webContents.openDevTools()
+    // and load the index.html of the app.
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -47,6 +66,9 @@ function createWindow() {
     console.log("killing");
     if (www != null) {
       www.kill('SIGHUP');
+      // hack for now, replace w/ something better soon...
+      pkill('scsynth');
+      pkill('sclang')
     }
   })
 }
