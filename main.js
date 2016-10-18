@@ -36,8 +36,17 @@ ipcMain.on('asynchronous-message', (event, arg) => {
   } else if (arg == 'pull') {
     require('simple-git')(__dirname)
       .pull(function(err, update) {
-        app.relaunch();
-        app.exit();
+
+        var bowerproc = require('child_process').exec('bower install')
+        bowerproc.stdout.pipe(process.stdout)
+        bowerproc.on('exit', function() {
+          var npmproc = require('child_process').exec('npm install')
+          npmproc.stdout.pipe(process.stdout)
+          npmproc.on('exit', function() {
+            app.relaunch();
+            app.exit();
+          })
+        });
       });
   } else if (arg == 'follow') {
     herokuargs = ['-s', heroku];
@@ -54,8 +63,8 @@ function createWindow() {
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
-  mainWindow.webContents.openDevTools()
-    // and load the index.html of the app.
+  //mainWindow.webContents.openDevTools()
+  // and load the index.html of the app.
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
