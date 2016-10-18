@@ -1,9 +1,9 @@
 extends controller
 block bottomrow
-  div.row.subbutton.bg-next(style="width:100%;margin:0px;")
+  div.col-md-12.subbutton.bg-next
     each i in [0, 2, 3, 4]
       - var val = nav[i]
-      div.col-md-3.col-sm-3.col-xs-3.text-center.subbutton
+      div.col-md-3.col-sm-3.col-xs-3.text-center.maketable
         div.tbcell(
           ng-click = 'setstate({top:'+val.top+',verb:'+val.verb+'})')
           h1(class = 'fa fa-'+val.fa+' fa-3x',style='padding-top:0px;')

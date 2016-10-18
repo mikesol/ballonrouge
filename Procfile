@@ -1,1 +1,1 @@
-web: node bin/www -m true
+web: node bin/www -m true -d redis

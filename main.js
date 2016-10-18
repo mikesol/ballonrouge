@@ -1,12 +1,50 @@
 const electron = require('electron')
+const {
+  ipcMain
+} = require('electron')
   // Module to control application life.
 const app = electron.app
   // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+const yaml = require('js-yaml');
+const fs = require('fs');
+const pkill = require('pkill');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let www
+let heroku
+let herokuargs = [];
+
+try {
+  heroku = yaml.safeLoad(fs.readFileSync(__dirname + "/.herokuaddr.yaml", 'utf8')).addr;
+  console.log(heroku);
+} catch (e) {
+  console.log(e);
+}
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg) // prints "ping"
+  event.sender.send('asynchronous-reply', 'pong')
+  if (arg == 'go') {
+    www = require('child_process').spawn('node', ['./bin/www'].concat(herokuargs), {
+      stdio: ['inherit', 'inherit', 'inherit']
+    });
+    setTimeout(() => mainWindow.loadURL('http://localhost:3000'), 4000);
+  } else if (arg == 'pull') {
+    require('simple-git')(__dirname)
+      .pull(function(err, update) {
+        app.relaunch();
+        app.exit();
+      });
+  } else if (arg == 'follow') {
+    herokuargs = ['-s', heroku];
+  } else if (arg == 'lead') {
+    herokuargs = [];
+  }
+})
 
 function createWindow() {
   // Create the browser window.
@@ -16,14 +54,8 @@ function createWindow() {
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
-  // and load the index.html of the app.
-  setTimeout(function() {
-    mainWindow.loadURL('http://localhost:3000');
-    setTimeout(function() {
-      mainWindow.reload();
-    }, 2000);
-  }, 2000);
-
+  mainWindow.webContents.openDevTools()
+    // and load the index.html of the app.
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -31,6 +63,13 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+    console.log("killing");
+    if (www != null) {
+      www.kill('SIGHUP');
+      // hack for now, replace w/ something better soon...
+      pkill('scsynth');
+      pkill('sclang')
+    }
   })
 }
 
@@ -38,7 +77,6 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
-  require('child_process').spawn('node', ['./bin/www'])
   createWindow();
 })
 

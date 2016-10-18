@@ -9,7 +9,7 @@ var debug = require('debug')('redballoon:server');
 var http = require('http');
 var args = require('minimist')(process.argv.slice(2));
 
-// m = mock
+// m = mock supercollider
 if (args.m === 'true') {
   console.log('mocking supercollider');
   require('../supercollider/supercollider').mock(true);
@@ -19,6 +19,12 @@ if (args.m === 'true') {
 if (args.s != null) {
   console.log('acting as a slave to '+args.s);
   require('../state/state').slave(args.s);
+}
+
+// d = db
+if (args.d != null) {
+  console.log('asking for this db '+args.d);
+  require('../state/state').db(args.d);
 }
 
 /**

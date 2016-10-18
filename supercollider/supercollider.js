@@ -65,5 +65,6 @@ var init = function() {
 
 module.exports = {
   init: init,
-  mock: () => mock.mock = true
+  mock: () => mock.mock = true,
+  ismock: () => mock.mock
 };

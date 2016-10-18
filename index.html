@@ -2,8 +2,10 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" type="text/css" href="./bower_components/font-awesome/css/font-awesome.min.css" />
   <style type="text/css">
     .center img {
       display: block;
@@ -11,13 +13,68 @@
       margin-right: auto;
     }
   </style>
+  <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+  <script type="text/javascript">
+    const {
+      ipcRenderer
+    } = require('electron')
+      //console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
+
+    ipcRenderer.on('asynchronous-reply', (event, arg) => {
+      console.log(arg) // prints "pong"
+    })
+
+    console.log("loading angular");
+    angular.module('mainwindow',[]).
+    controller('MainCtrl', function($scope) {
+
+      var sendMsg = function(msg) {
+        ipcRenderer.send('asynchronous-message', msg);
+      }
+
+      $scope.lead = true;
+      $scope.going = false;
+      $scope.pulling = false;
+
+      $scope.changeLead = function() {
+        $scope.lead = !$scope.lead;
+        sendMsg($scope.lead ? 'lead' : 'follow');
+      }
+
+      $scope.pull = function() {
+        $scope.pulling = true;
+        sendMsg('pull');
+      }
+
+      $scope.go = function() {
+        $scope.going = true;
+        sendMsg('go');
+      }
+    });
+    console.log("angular loaded");
+  </script>
 </head>
 
-<body>
+<body ng-app="mainwindow" ng-controller="MainCtrl">
   <h1 class="text-center">Le ballon rouge</h1>
   <div class="center">
-    <img width=1000 src="./img/red.jpg" />
+    <img width=900 src="./img/red.jpg" />
   </div>
+  <br />
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <button ng-click="changeLead()" class="btn btn-primary btn-lg">{{lead ? "je mène" : "je suis"}}</button>
+    </div>
+    <div class="col-md-4 text-center">
+      <button ng-click="pull()" class="btn btn-success btn-lg"><span ng-class="{'fa':pulling,'fa-cog':pulling,'fa-spin':pulling,'fa-fw':pulling}"  />{{pulling ? "" : "je me mets à jour"}}</button>
+    </div>
+    <div class="col-md-4 text-center">
+      <button ng-click="go()" class="btn btn-info btn-lg"><span ng-class="{'fa':going,'fa-cog':going,'fa-spin':going,'fa-fw':going}"  />{{going ? "" : "j'y vais !"}}</button>
+    </div>
+  </div>
+  <div
+  ng-style="{opacity : going || pulling ? '0.5' : '0.0', 'pointer-events': going || pulling ? 'auto' : 'none'}"
+  style="width:100%;height:100%;position:absolute;top:0;background-color:pink;">
 </body>
 
 </html>
