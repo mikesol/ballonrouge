@@ -29,7 +29,9 @@ router.get('/', function(req, res, next) {
   state.get().then(function(st) {
     if (st.sc == null) {
       console.log('loading main page');
-      res.render('loading');
+      // ugh, hack because of io code
+      // make this nicer...
+      supercollider.ismock() ? render(res, 'index', st) : res.render('loading');
       supercollider.init().then(function(sc) {
         process.once('SIGUSR2', function() {
           sc.sclang.quit();
