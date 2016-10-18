@@ -1,4 +1,7 @@
 const electron = require('electron')
+const {
+  ipcMain
+} = require('electron')
   // Module to control application life.
 const app = electron.app
   // Module to create native browser window.
@@ -7,6 +10,16 @@ const BrowserWindow = electron.BrowserWindow
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let www
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.sender.send('asynchronous-reply', 'pong')
+  if (arg == 'go') {
+    www = require('child_process').spawn('node', ['./bin/www']);
+    setTimeout(()=>mainWindow.loadURL('http://localhost:3000'), 4000);
+  }
+})
 
 function createWindow() {
   // Create the browser window.
@@ -16,14 +29,8 @@ function createWindow() {
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
+  //mainWindow.webContents.openDevTools()
   // and load the index.html of the app.
-  setTimeout(function() {
-    mainWindow.loadURL('http://localhost:3000');
-    //setTimeout(function() {
-    //  mainWindow.reload();
-    //}, 2000);
-  }, 6000);
-
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -31,6 +38,8 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+    console.log("killing");
+    www.kill('SIGHUP');
   })
 }
 
@@ -38,7 +47,6 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
-  require('child_process').spawn('node', ['./bin/www'])
   createWindow();
 })
 
