@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "main": "main.js",
+  "productName": "Le Ballon Rouge",
   "scripts": {
     "start": "node ./bin/www",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
@@ -12,7 +13,7 @@
     "async-lock": "^0.3.8",
     "bluebird": "^3.4.6",
     "body-parser": "~1.15.1",
-    "bower": "1.7.9",
+    "bower": "^1.7.9",
     "cookie-parser": "^1.4.3",
     "debug": "~2.2.0",
     "electron": "^1.4.3",
