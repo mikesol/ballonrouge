@@ -1,7 +1,7 @@
 extends controllerlayout
 block content
   div.fullscreen(ng-app="redballoon" ng-controller="MainCtrl")
-    div.col-md-12.text-center.bg-now.mainbutton
+    div.col-md-12.text-center.bg-now.mainbutton.maketable
       - var next = now + 1
       div.tbcell(ng-click = "setstate({top:"+next+",verb:"+states.STOPPED+"})")
         h1.yuuuge= now

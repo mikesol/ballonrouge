@@ -19,10 +19,10 @@ function createWindow() {
   // and load the index.html of the app.
   setTimeout(function() {
     mainWindow.loadURL('http://localhost:3000');
-    setTimeout(function() {
-      mainWindow.reload();
-    }, 2000);
-  }, 2000);
+    //setTimeout(function() {
+    //  mainWindow.reload();
+    //}, 2000);
+  }, 6000);
 
 
   // Emitted when the window is closed.

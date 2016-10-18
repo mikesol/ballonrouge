@@ -17,11 +17,14 @@
   vertical-align: middle;
 }
 
+.maketable {
+  display: table;
+}
+
 .mainbutton {
   height: 85%;
   margin: 0px;
   padding: 0px;
-  display: table;
   width: 100%;
 }
 
@@ -29,6 +32,5 @@
   height: 15%;
   margin: 0px;
   padding: 0px;
-  display: table;
   width: 100%;
 }
