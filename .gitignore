@@ -5,3 +5,4 @@ redballoon.db
 .supercollider.yaml
 .herokuaddr.yaml
 sounds/soundinfo.json
+*.aif
