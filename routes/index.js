@@ -4,6 +4,7 @@ var supercollider = require('./../supercollider/supercollider');
 var PubSub = require('pubsub-js');
 var states = require('./../state/states');
 var state = require('./../state/state');
+var cop = require('./../tops/cop')
 
 const title = 'Le ballon rouge';
 var tops = require('./../consts/scenes');
@@ -44,6 +45,7 @@ router.get('/', function(req, res, next) {
     } else {
       console.log('rendering main page');
       render(res, 'index', st);
+      cop(st.top, st.verb, st.sc);
     }
   });
 });

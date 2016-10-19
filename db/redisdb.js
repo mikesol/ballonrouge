@@ -9,7 +9,7 @@ var get = function(key) {
       if (err != null) {
         reject(err);
       } else {
-        resolve(err);
+        resolve(res);
       }
     });
   });
@@ -21,7 +21,7 @@ var set = function(key, val) {
       if (err != null) {
         reject(err);
       } else {
-        resolve(err);
+        resolve(res);
       }
     });
   });

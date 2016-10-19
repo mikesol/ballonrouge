@@ -1,5 +1,5 @@
 var expect = require("chai").expect;
-var sequitur = require("../sequitur/sequitur");
+var sequitur = require("./../sequitur/sequitur");
 var ril = sequitur.rerouteIfLate;
 var Rx = require('rx'),
   Observable = Rx.Observable,
@@ -21,6 +21,26 @@ asyncTest("Play works correctly", function() {
   }, 4000);
 });
 
+asyncTest("Extras are passed in", function() {
+  var e = new EventEmitter();
+  var sum = 0;
+  var fooify = (i, x) => {
+    sum += x;
+    return 'foo';
+  };
+  var seq = sequitur(e, 3).at('0s', fooify, null)
+    .at('2.1s', fooify, null)
+    .at('3.1s', fooify, null);
+  var subscription = Observable.fromEvent(e, 'foo')
+    .subscribe((x) => {});
+  seq.play();
+  setTimeout(function() {
+    seq.stop();
+    equal(9, sum);
+    start();
+  }, 4000);
+});
+
 asyncTest("Pause works correctly", function() {
   var e = new EventEmitter();
   var sum = 0;
@@ -37,6 +57,27 @@ asyncTest("Pause works correctly", function() {
       start();
     }, 2000);
   }, 2500);
+});
+
+asyncTest("Events with AT are emitted after a softpause", function() {
+  var e = new EventEmitter();
+  var sum = 0;
+  var seq = sequitur(e).at('0s', 'foo', 1)
+    .at('2.1s', 'foo', 1)
+    .at('3.1s', 'foo', 1)
+    .AT('4.1s', 'foo', 1)
+    .AT('5.1s', 'foo', 1)
+    .at('8.1s', 'foo', 1);
+  var subscription = Observable.fromEvent(e, 'foo')
+    .subscribe((x) => sum += x);
+  seq.play();
+  setTimeout(function() {
+    seq.softpause();
+    setTimeout(function() {
+      equal(5, sum);
+      start();
+    }, 7000);
+  }, 3500);
 });
 
 asyncTest("Late events are rerouted correctly, even with multiple pauses", function() {
@@ -156,9 +197,9 @@ asyncTest("Seek skips over events when playing", function() {
   seq.play();
   setTimeout(function() {
     seq.seek('3s');
-    setTimeout(function(){
+    setTimeout(function() {
       equal(3, sum);
       start();
-    },1000);
+    }, 1000);
   }, 1000);
 });
