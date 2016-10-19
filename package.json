@@ -6,13 +6,15 @@
   "scripts": {
     "start": "node ./bin/www",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "test": "./node_modules/.bin/mocha --ui mocha-qunit-ui -b"
   },
   "dependencies": {
     "async-lock": "^0.3.8",
     "bluebird": "^3.4.6",
     "body-parser": "~1.15.1",
     "bower": "1.7.9",
+    "chai": "^3.5.0",
     "cookie-parser": "^1.4.3",
     "debug": "~2.2.0",
     "electron": "^1.4.3",
@@ -20,17 +22,23 @@
     "express-bootstrap-service": "^1.0.0",
     "jade": "~1.11.0",
     "js-yaml": "^3.6.1",
+    "lodash": "^4.16.4",
     "minimist": "^1.2.0",
+    "mocha": "^3.1.2",
     "morgan": "~1.7.0",
     "nanotimer": "^0.3.14",
     "pkill": "^2.0.0",
     "pubsub-js": "^1.5.3",
     "redis": "^2.6.2",
+    "rx": "^4.1.0",
     "serve-favicon": "~2.3.0",
     "simple-git": "^1.54.0",
     "socket.io": "^1.5.0",
     "socket.io-client": "^1.5.0",
     "sqlite3": "^3.1.6",
     "supercolliderjs": "^0.12.0"
+  },
+  "devDependencies": {
+    "mocha-qunit-ui": "^0.1.2"
   }
 }
