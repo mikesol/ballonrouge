@@ -13,6 +13,7 @@
 */
 var _ = require('lodash');
 var NanoTimer = require('nanotimer');
+var SortedArray = require('sorted-array')
 
 var timeToNano = function(interval) {
   var intervalType = interval[interval.length - 1];
@@ -45,18 +46,18 @@ var actualStart = function(requested, actual) {
 }
 
 var fnify = function(event, key, val) {
-  return function(t) {
-    event.emit(key(t), val(t));
+  return function(t, xtra) {
+    event.emit(key(t, xtra), val(t, xtra));
   }
 }
 
 module.exports = (() => {
-  var out = function(e) {
+  var out = function(e, xtra) {
 
     let playing = false;
     let startedAt;
     let timers = [];
-    let sequence = [];
+    let sequence = SortedArray.comparing((a) => timeToNano(a.t), []);
     let start = '0s';
 
     var clearTimeout = function() {
@@ -64,19 +65,35 @@ module.exports = (() => {
       timers = [];
     }
 
-    var at = (t, key, val) => sequence.push({
-      t: t,
-      key: key,
-      val: val
-    });
+    var softClearTimeout = function() {
+      var doClearing = false;
+      for (var i = 0; i < timers.length; i++) {
+        if (sequence.array[i].hard || timers[i].timeoutTriggered || doClearing) {
+          continue;
+        }
+        timers[i].clearTimeout();
+        doClearing = true;
+      }
+    }
+
+    var at = (t, key, val, hard) => {
+      sequence.insert({
+        t: t,
+        key: key,
+        val: val,
+        hard: hard ? true : false
+      });
+    };
 
     var play = () => {
       if (playing) {
+        console.log("sequitur playing already");
         return;
       }
+      console.log("playing "+sequence.array.length+" elements");
       playing = true;
       startedAt = nowns();
-      timers = sequence
+      timers = sequence.array
         .map((v) => ({
           t: v.t,
           key: _.isFunction(v.key) ? v.key : () => v.key,
@@ -84,29 +101,30 @@ module.exports = (() => {
         }))
         .map((v) => {
           var nt = new NanoTimer();
-          nt.setTimeout(fnify(e, v.key, v.val), [startsThisLate(v.t, start)],
+          nt.setTimeout(fnify(e, v.key, v.val), [startsThisLate(v.t, start), xtra],
             actualStart(v.t, start));
           return nt;
         });
     };
 
     var stop = () => {
+      start = '0s'
       if (playing == false) {
         return;
       }
       playing = false;
       clearTimeout();
-      start = '0s'
     };
 
-    var pause = () => {
-      if (playing == false) {
-        return;
-      }
-      playing = false;
-      clearTimeout();
-      start = startedAt == null ? '0s' : (timeToNano(start) + (nowns() - startedAt)) + 'n';
-    };
+    var pause = (soft) =>
+      () => {
+        if (playing == false) {
+          return;
+        }
+        playing = false;
+        soft ? softClearTimeout() : clearTimeout();
+        start = startedAt == null ? '0s' : (timeToNano(start) + (nowns() - startedAt)) + 'n';
+      };
 
     var seek = (t) => {
       var localPlaying = playing;
@@ -125,10 +143,16 @@ module.exports = (() => {
         at(t, key, val);
         return out;
       },
+      AT: (t, key, val) => {
+        at(t, key, val, true);
+        return out;
+      },
       play: play,
       stop: stop,
-      pause: pause,
-      seek: seek
+      pause: pause(false),
+      softpause: pause(true),
+      seek: seek,
+      print: () => sequence.array.forEach((x) => console.log(x.t + " " + x.key + " " + x.val))
     };
     return out;
   };

@@ -4,3 +4,4 @@ bower_components
 redballoon.db
 .supercollider.yaml
 .herokuaddr.yaml
+sounds/soundinfo.json
