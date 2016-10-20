@@ -68,3 +68,7 @@ thierry4.aif filter=lfs -crlf
 thierry5.aif filter=lfs -crlf
 thierry6.aif filter=lfs -crlf
 timpani.aif filter=lfs -crlf
+carrefour.aif filter=lfs -crlf
+grab.aif filter=lfs -crlf
+swing.aif filter=lfs -crlf
+swingend.aif filter=lfs -crlf
