@@ -1,5 +1,6 @@
-var top0 = require('./../tops/top0.js')
+var entry = require('./../tops/entry')
+var entryend = require('./../tops/entryend')
 
 test('show scene 0', function () {
-  top0.scene.print();
+  entry.scene.print();
 });

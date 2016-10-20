@@ -25,7 +25,7 @@ const SETSTATE = 'setstate';
 
 var initialize = function(st) {
   if (st.initialized) {
-    return state;
+    return Promise.resolve(state);
   }
   st.initialized = true;
   return state.db.get(TOP)
@@ -37,7 +37,7 @@ var initialize = function(st) {
     .then((verb) => {
       console.log("GET verb=" + verb);
       st.verb = isNaN(parseInt(verb, 10)) ? states.STOPPED : parseInt(verb, 10);
-      return state;
+      return Promise.resolve(state);
     });
 }
 
@@ -63,14 +63,12 @@ var writeToMaster = function(all) {
 var setstate = function(all) {
   console.log('setting state with all.top=' + all.top + " and all.verb=" + all.verb);
   lock.acquire(DELTA, () => {
-    initialize(state);
-    if (state.slaveio) {
-      writeToMaster(all);
-    } else {
-      writeToStateObject(all);
-    }
+    initialize(state).then(() => state.slaveio ?
+      writeToMaster(all) :
+      writeToStateObject(all)
+    )
   });
-};
+}
 
 var slavize = function(addr) {
   if (state.slaveio == null) {
