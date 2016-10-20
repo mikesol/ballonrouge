@@ -10,7 +10,6 @@
     "test": "./node_modules/.bin/mocha --ui mocha-qunit-ui -b"
   },
   "dependencies": {
-    "aiff-file-info": "0.0.4",
     "async-lock": "^0.3.8",
     "bluebird": "^3.4.6",
     "body-parser": "~1.15.1",

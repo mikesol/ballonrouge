@@ -1,7 +1,10 @@
 module.exports = [
   'Entrée public',
+  'Fin entrée public',
   'Balançoire',
+  'Fin balançoire',
   'Carrefour',
+  'Crescendo',
   'Prise en main du ballon',
   'Première ville',
   'Le garçon relâche le ballon',
