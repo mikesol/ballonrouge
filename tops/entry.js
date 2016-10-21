@@ -38,15 +38,15 @@ var buffers = _.assign({}, popbufs, mpqq, airbufs)
 var bufdurs = aiftools.bufdurs(_.keys(buffers));
 var event = new EventEmitter();
 var scene = sequitur(event);
-var group = s.nextNodeID();
-scene.at('0.0s', ril, ["/g_new", 4, group]);
-scene.at('0.01s', ril, ["/s_new", "verbBus", verbId, 0, group, "in", 4, "out", 0]);
+var group = 0;
+var kludge = 0.0;
+scene.at(kludge+'s', ril, ["/s_new", "verbBus", verbId, 0, group, "in", 4, "out", 0]);
 
 
 var klankIds = [];
 for (var i = 0; i < 6; i++) {
   klankIds.push(s.nextNodeID());
-  scene.at((0.1 + (i * 0.5)) + 's', ril, ["/s_new", "klankPitchShift", klankIds[i], 0, group, "out", 4, "bufnum", _.values(mpqq)[0], "shift", i === 0 ? 1.0 : 0.9, "mul", Math.pow(0.95, i * 20)]);
+  scene.at((kludge + (i * 0.5)) + 's', ril, ["/s_new", "klankPitchShift", klankIds[i], 0, group, "out", 4, "bufnum", _.values(mpqq)[0], "shift", i === 0 ? 1.0 : 0.9, "mul", Math.pow(0.95, i * 20)]);
 }
 
 var starttime = 0;
