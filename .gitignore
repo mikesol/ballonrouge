@@ -2,6 +2,5 @@ node_modules
 bower_components
 *~
 redballoon.db
-.supercollider.yaml
 .herokuaddr.yaml
 *.aif
