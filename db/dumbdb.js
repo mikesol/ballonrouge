@@ -1,6 +1,6 @@
 // @flow
 
 module.exports = {
-  get : ()=>Promise.resolve(null),
-  set : ()=>Promise.resolve(null)
+  get : (key: string)=>Promise.resolve(null),
+  set : (key: string, value: any)=>Promise.resolve(null)
 }

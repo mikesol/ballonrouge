@@ -1,4 +1,4 @@
-// @flow weak
+// @flow
 
 /**
   API
@@ -14,21 +14,22 @@
 var _ = require('lodash');
 var NanoTimer = require('nanotimer');
 var SortedArray = require('sorted-array')
+var EventEmitter = require('events').EventEmitter;
 
 var timeToNano = function(interval) {
   var intervalType = interval[interval.length - 1];
 
   if (intervalType == 's') {
-    return interval.slice(0, interval.length - 1) * 1000000000;
+    return parseFloat(interval.slice(0, interval.length - 1)) * 1000000000;
   } else if (intervalType == 'm') {
-    return interval.slice(0, interval.length - 1) * 1000000;
+    return parseFloat(interval.slice(0, interval.length - 1)) * 1000000;
   } else if (intervalType == 'u') {
-    return interval.slice(0, interval.length - 1) * 1000;
+    return parseFloat(interval.slice(0, interval.length - 1)) * 1000;
   } else if (intervalType == 'n') {
-    return interval.slice(0, interval.length - 1);
+    return parseFloat(interval.slice(0, interval.length - 1));
   } else {
     console.log('Error with argument: ' + interval + ': Incorrect interval format. Format is an integer followed by "s" for seconds, "m" for milli, "u" for micro, and "n" for nanoseconds. Ex. 2u');
-    process.exit(1);
+    return 0;
   }
 }
 
@@ -52,7 +53,7 @@ var fnify = function(event, key, val) {
 }
 
 module.exports = (() => {
-  var out = function(e, xtra) {
+  var out = function(e:EventEmitter, xtra?: any) {
 
     let playing = false;
     let startedAt;
@@ -96,8 +97,8 @@ module.exports = (() => {
       timers = sequence.array
         .map((v) => ({
           t: v.t,
-          key: _.isFunction(v.key) ? v.key : () => v.key,
-          val: _.isFunction(v.val) ? v.val : () => v.val
+          key: _.isFunction(v.key) ? v.key : (x,y) => v.key,
+          val: _.isFunction(v.val) ? v.val : (x,y) => v.val
         }))
         .map((v) => {
           var nt = new NanoTimer();
@@ -126,7 +127,7 @@ module.exports = (() => {
         start = startedAt == null ? '0s' : (timeToNano(start) + (nowns() - startedAt)) + 'n';
       };
 
-    var seek = (t) => {
+    var seek = (t:string) => {
       var localPlaying = playing;
       if (localPlaying) {
         stop();
@@ -139,11 +140,11 @@ module.exports = (() => {
 
     var out = {
       e: e,
-      at: (t, key, val) => {
+      at: (t:string, key:string | (x: number, y: any) => void, val: mixed | (x: number, y: any) => void) => {
         at(t, key, val);
         return out;
       },
-      AT: (t, key, val) => {
+      AT: (t:string, key:string | (x: number, y: any) => void, val: mixed | (x: number, y: any) => void) => {
         at(t, key, val, true);
         return out;
       },

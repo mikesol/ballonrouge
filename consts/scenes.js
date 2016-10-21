@@ -1,3 +1,5 @@
+// @flow
+
 module.exports = [
   'Entrée public',
   'Fin entrée public',

@@ -3,11 +3,11 @@ var _ = require('lodash')
 var states = require('./../state/states');
 var s = require('./../supercollider/next');
 var sequitur = require('./../sequitur/sequitur');
-var currentSeq = sequitur();
+var EventEmitter = require('events').EventEmitter;
+var currentSeq = sequitur(new EventEmitter());
 var currentSubscription = null;
 var Rx = require('rx');
 var Observable = Rx.Observable;
-var EventEmitter = require('events').EventEmitter;
 var tops = require('./../tops/tops');
 var cap = s.nextNodeID();
 
