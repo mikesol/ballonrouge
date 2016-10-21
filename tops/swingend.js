@@ -22,5 +22,5 @@ scene.at('0.0s', ril, ["/s_new", "swingPlayer", s.nextNodeID(), 0, entry.group, 
 module.exports = {
   scene: scene,
   event: event,
-  buffers: swing
+  buffers: swingend
 }
