@@ -13,7 +13,7 @@ var cap = s.nextNodeID();
 
 module.exports = function(top, verb, sc) {
   if (verb === states.STOPPED || verb === states.PAUSED) {
-    _.range(0, cap).forEach((n)=>sc.server.send.msg(['/n_free', n]));
+    _.range(1, cap).forEach((n)=>sc.server.send.msg(['/n_free', n]));
   }
   if (verb === states.STOPPED) {
     currentSeq.stop();
