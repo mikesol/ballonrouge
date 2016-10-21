@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "main": "main.js",
+  "productName": "Le Ballon Rouge",
   "scripts": {
     "start": "node ./bin/www",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
