@@ -29,7 +29,7 @@ ipcMain.on('asynchronous-message', (event, arg) => {
   console.log(arg) // prints "ping"
   event.sender.send('asynchronous-reply', 'pong')
   if (arg == 'go') {
-    www = require('child_process').spawn('node', ['./bin/www'].concat(herokuargs), {
+    www = require('child_process').spawn('./node_modules/flow-remove-types/flow-node', ['./bin/www'].concat(herokuargs), {
       stdio: ['inherit', 'inherit', 'inherit']
     });
     setTimeout(() => mainWindow.loadURL('http://localhost:3000'), 4000);
