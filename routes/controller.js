@@ -1,10 +1,10 @@
-// @flow weak
+// @flow
 var express = require('express');
 var state = require('./../state/state');
 var tops = require('./../consts/scenes');
 
 
-var proddev = function(prod) {
+var proddev = function(prod: boolean) {
   var router = express.Router();
   /* GET home page. */
   return router.get('/', function(req, res, next) {
@@ -18,7 +18,7 @@ var proddev = function(prod) {
           now: st.top,
           nowText: tops[st.top],
           states: require('./../state/states'),
-          nav: require('./../nav/nav')(st)
+          nav: require('./../nav/nav')(st.top)
         });
       }
     });

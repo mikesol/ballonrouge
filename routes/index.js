@@ -1,4 +1,4 @@
-// @flow weak
+// @flow
 var express = require('express');
 var supercollider = require('./../supercollider/supercollider');
 var PubSub = require('pubsub-js');
@@ -20,7 +20,7 @@ var render = function(res, template, state) {
     range: Array(tops.length)
       .fill(null)
       .reduce((pre, cur) => pre.concat([pre.length]), []),
-    nav: require('./../nav/nav.js')(state)
+    nav: require('./../nav/nav.js')(state.top)
   });
 }
 

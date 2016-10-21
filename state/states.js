@@ -1,3 +1,4 @@
+// @flow
 module.exports = {
   STAGED: 0,
   PAUSED: 1,
