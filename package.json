@@ -50,6 +50,6 @@
     "mocha-qunit-ui": "^0.1.2"
   },
   "engines": {
-  "node": "6.1.0"
-}
+    "node": "6.1.0"
+  }
 }
