@@ -20,7 +20,7 @@ interface SCSynth {
   quit(): void;
 }
 
-class SCHolder {
+var SCHolder = class {
   constructor(sclang: SCLang, scsynth: SCSynth) {
     this.sclang = sclang;
     this.server = scsynth;
