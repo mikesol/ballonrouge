@@ -7,8 +7,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "compile": "node_modules/babel-cli/bin/babel.js app --out-dir build",
+    "prepublish": "npm run compile",
     "postinstall": "bower install",
-    "babel-node": "babel-node --presets=es2015",
     "test": "./node_modules/.bin/mocha --ui mocha-qunit-ui -b"
   },
   "dependencies": {

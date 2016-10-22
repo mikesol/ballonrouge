@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app').app;
+var app = require('../build/app').app;
 var debug = require('debug')('redballoon:server');
 var http = require('http');
 var args = require('minimist')(process.argv.slice(2));
@@ -12,19 +12,19 @@ var args = require('minimist')(process.argv.slice(2));
 // m = mock supercollider
 if (args.m === 'true') {
   console.log('mocking supercollider');
-  require('../supercollider/supercollider').mock(true);
+  require('../build/supercollider/supercollider').mock(true);
 }
 
 // s = slave
 if (args.s != null) {
   console.log('acting as a slave to '+args.s);
-  require('../state/state').slave(args.s);
+  require('../build/state/state').slave(args.s);
 }
 
 // d = db
 if (args.d != null) {
   console.log('asking for this db '+args.d);
-  require('../state/state').db(args.d);
+  require('../build/state/state').db(args.d);
 }
 
 /**
@@ -38,7 +38,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = require('../app').server;
+var server = require('../build/app').server;
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -1,5 +1,5 @@
 var expect = require("chai").expect;
-var sequitur = require("./../sequitur/sequitur");
+var sequitur = require("./../build/sequitur/sequitur");
 var ril = sequitur.rerouteIfLate;
 var Rx = require('rx'),
   Observable = Rx.Observable,

@@ -9,6 +9,6 @@ var carrefourend = require('./carrefourend')
 var grab = require('./grab')
 
 module.exports = [
-  entry, entryend, swing, swingend, carrefour, carrefourend, {}, {}, {}, {}, {}, {}, {},
+  entry, entryend, swing, swingend, carrefour, carrefourend, grab, {}, {}, {}, {}, {}, {},
   {}, {}, {}, {}, {}, {}, {}, {}, {}
 ];
