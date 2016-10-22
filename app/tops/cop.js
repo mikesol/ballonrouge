@@ -1,7 +1,8 @@
-// @flow weak
+// @flow
 var _ = require('lodash')
 var states = require('./../state/states');
 var s = require('./../supercollider/next');
+var SCHolder = require('./../supercollider/supercollider').SCHolder;
 var sequitur = require('./../sequitur/sequitur');
 var EventEmitter = require('events').EventEmitter;
 var currentSeq = sequitur(new EventEmitter());
@@ -11,7 +12,7 @@ var Observable = Rx.Observable;
 var tops = require('./../tops/tops');
 var cap = s.nextNodeID();
 
-module.exports = function(top, verb, sc) {
+module.exports = function(top: number, verb: number, sc: SCHolder) {
   if (verb === states.STOPPED || verb === states.PAUSED) {
     _.range(1, cap).forEach((n)=>sc.server.send.msg(['/n_free', n]));
   }
@@ -25,7 +26,7 @@ module.exports = function(top, verb, sc) {
     console.log("soft pausing currentSeq");
     currentSeq.softpause();
   }
-  console.log("top=" + top + " tops[top]=" + tops[top]);
+  console.log("top=" + top);
   currentSeq = tops[top] ? tops[top].scene || sequitur(new EventEmitter()) : currentSeq;
   if (verb === states.STAGED) {
     console.log("playing " + top);
