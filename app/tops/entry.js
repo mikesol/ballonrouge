@@ -67,7 +67,7 @@ for (var i = 0; i < 200; i++) {
   scene.at(starttime + 's', ril, ["/s_new", "envRamp", s.nextNodeID(), 0, group, "out", 4, "bufnum", airbufs[air], "inflection", 0.2, "mul", 1.5]);
   var wait = starttime + bufdurs[air]
   for (var j = 0; j < _.random(8, 12); j++) {
-    scene.at(wait + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, group, "out", 0, "bufnum", popbufs[pop], "shift", 1.2 - (j * 0.03), "mul", 1.0/Math.log(j+3)]);
+    scene.AT(wait + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, group, "out", 0, "bufnum", popbufs[pop], "shift", 1.2 - (j * 0.03), "mul", 1.0/Math.log(j+3)]);
     wait += ((Math.log(i + 2)) * 0.3);
   }
 }
