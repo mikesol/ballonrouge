@@ -1,4 +1,4 @@
-var aiftools = require('./../aiftools/aiftools')
+var aiftools = require('./../build/aiftools/aiftools')
 var _ = require('lodash')
 
 test('values equal durations', function () {
