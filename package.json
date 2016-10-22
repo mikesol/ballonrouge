@@ -48,5 +48,8 @@
   },
   "devDependencies": {
     "mocha-qunit-ui": "^0.1.2"
-  }
+  },
+  "engines": {
+  "node": "6.1.0"
+}
 }
