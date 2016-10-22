@@ -12,7 +12,7 @@ interface SCLang {
 }
 
 interface Msg {
-  msg(s: string): void;
+  msg(s: any): void;
 }
 
 interface SCSynth {
