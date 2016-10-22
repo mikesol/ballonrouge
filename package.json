@@ -9,7 +9,7 @@
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "compile": "node_modules/babel-cli/bin/babel.js app --out-dir build",
     "prepublish": "npm run compile",
-    "postinstall": "bower install",
+    "postinstall": "bower install && npm run compile",
     "test": "./node_modules/.bin/mocha --ui mocha-qunit-ui -b"
   },
   "dependencies": {
