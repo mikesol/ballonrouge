@@ -3,9 +3,10 @@
 var supercolliderjs = require('supercolliderjs');
 var _ = require('lodash');
 var tops = require('./../tops/tops')
+var common = require('./../tops/common')
 
-var synthdefs = _.flatten(tops.map((top) => top.synthdefs || []));
-var buffers = tops.map((top) => _.invert(top.buffers || {})).reduce((pre, cur) => _.assign(pre, cur), {});
+var synthdefs = _.flatten(tops.concat(common).map((top) => top.synthdefs || []));
+var buffers = tops.concat(common).map((top) => _.invert(top.buffers || {})).reduce((pre, cur) => _.assign(pre, cur), {});
 
 interface SCLang {
   quit(): void;

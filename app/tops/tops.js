@@ -7,8 +7,9 @@ var swingend = require('./swingend')
 var carrefour = require('./carrefour')
 var carrefourend = require('./carrefourend')
 var grab = require('./grab')
+var city1 = require('./city1')
 
 module.exports = [
-  entry, entryend, swing, swingend, carrefour, carrefourend, grab, {}, {}, {}, {}, {}, {},
+  entry, entryend, swing, swingend, carrefour, carrefourend, grab, city1, {}, {}, {}, {}, {},
   {}, {}, {}, {}, {}, {}, {}, {}, {}
 ];
