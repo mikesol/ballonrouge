@@ -1,18 +1,18 @@
 // @flow
 
-var sequitur = require('./../sequitur/sequitur');
+var Sequitur = require('./../sequitur/sequitur');
 var s = require('./../supercollider/next');
-var ril = sequitur.rerouteIfLate('sc', 'ignore');
+var ril = Sequitur.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
-var entry = require('./entry');
+var common = require('./common');
 var carrefour = {
   'carrefour': s.nextBuffer(),
 }
 var carrefourId = s.nextNodeID()
 var event = new EventEmitter();
-var scene = sequitur(event);
-scene.at('0.0s', ril, ["/s_new", "carrefourPlayer", carrefourId, 0, entry.group, "out", 0, "bufnum", carrefour.carrefour]);
+var scene = new Sequitur(event);
+scene.at('0.0s', ril, ["/s_new", "carrefourPlayer", carrefourId, 0, common.group, "out", 0, "bufnum", carrefour.carrefour]);
 
 module.exports = {
   carrefourId: carrefourId,
