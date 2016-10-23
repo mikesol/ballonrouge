@@ -69,7 +69,7 @@ module.exports = (() => {
     var softClearTimeout = function() {
       var doClearing = false;
       for (var i = 0; i < timers.length; i++) {
-        if (sequence.array[i].hard || timers[i].timeoutTriggered || doClearing) {
+        if ((sequence.array[i].hard || timers[i].timeoutTriggered) && !doClearing) {
           continue;
         }
         timers[i].clearTimeout();
