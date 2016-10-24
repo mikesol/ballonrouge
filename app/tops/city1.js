@@ -1,8 +1,8 @@
 // @flow
 
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var s = require('./../supercollider/next');
-var ril = Sequitur.rerouteIfLate('sc', 'ignore');
+var ril = EvSeq.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var aiftools = require('./../aiftools/aiftools');
@@ -20,7 +20,7 @@ var buffers = {
 
 var bufdurs = aiftools.bufdurs(_.keys(buffers));
 var event = new EventEmitter();
-var scene = new Sequitur(event);
+var scene = new EvSeq(event);
 scene.at('0.0s', ril, ["/s_new", "city1Gate", cityGateId, 0, common.group, "in", 4, "out", 0]);
 scene.at('0.0s', ril, ["/s_new", "city1Player", s.nextNodeID(), 0, common.group, "out", 4, "bufnum", buffers.earlyMorningCity]);
 scene.at('0.0s', ril, ["/s_new", "city1Bike", s.nextNodeID(), 0, common.group, "out", 4, "bufnum", buffers['330956__nikiforov5000__bicycle-bell'], "pitch", 1.0, "pan", 0, "depth", 0.5, "mul", 0.4]);

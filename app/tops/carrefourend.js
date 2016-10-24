@@ -1,15 +1,15 @@
 // @flow
 
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var s = require('./../supercollider/next');
-var ril = Sequitur.rerouteIfLate('sc', 'ignore');
+var ril = EvSeq.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var carrefour = require('./carrefour');
 var common = require('./common');
 var aiftools = require('./../aiftools/aiftools');
 var event = new EventEmitter();
-var scene = new Sequitur(event);
+var scene = new EvSeq(event);
 var carrefourend = {
   'carrefourend': s.nextBuffer(),
 }

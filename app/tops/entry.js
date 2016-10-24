@@ -1,8 +1,8 @@
 // @flow
 
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var s = require('./../supercollider/next');
-var ril = Sequitur.rerouteIfLate('sc', 'ignore');
+var ril = EvSeq.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var aiftools = require('./../aiftools/aiftools');
@@ -19,7 +19,7 @@ var verbId = s.nextNodeID()
 var buffers = _.assign({}, mpqq)
 var bufdurs = aiftools.bufdurs(_.keys(buffers));
 var event = new EventEmitter();
-var scene = new Sequitur(event);
+var scene = new EvSeq(event);
 var kludge = 0.0;
 scene.at(kludge + 's', ril, ["/s_new", "verbBus", verbId, 0, common.group, "in", 4, "out", 0]);
 

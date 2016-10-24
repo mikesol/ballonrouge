@@ -1,8 +1,8 @@
 // @flow
 
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var s = require('./../supercollider/next');
-var ril = Sequitur.rerouteIfLate('sc', 'ignore');
+var ril = EvSeq.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var common = require('./common');
@@ -11,7 +11,7 @@ var swing = {
 }
 var swingId = s.nextNodeID()
 var event = new EventEmitter();
-var scene = new Sequitur(event);
+var scene = new EvSeq(event);
 scene.at('0.0s', ril, ["/s_new", "swingPlayer", swingId, 0, common.group, "out", 0, "bufnum", swing.swing]);
 
 module.exports = {

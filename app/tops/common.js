@@ -1,8 +1,8 @@
 // @flow
 
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var s = require('./../supercollider/next');
-var ril = Sequitur.rerouteIfLate('sc', 'ignore');
+var ril = EvSeq.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var aiftools = require('./../aiftools/aiftools');
@@ -37,7 +37,7 @@ var group = 0;
 // outbus only applies to air because we want the pops to be unaltered
 // kinda kludgy...fix
 var airpop = function(ntimes: number, randlow: number, randhi: number, starttime: number,
-  outbus: number, scene: Sequitur) {
+  outbus: number, scene: EvSeq) {
   var prevair = null;
   var prevpop = null;
   for (var i = 0; i < ntimes; i++) {

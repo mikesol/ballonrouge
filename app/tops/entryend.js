@@ -1,14 +1,14 @@
 // @flow
 
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var s = require('./../supercollider/next');
-var ril = Sequitur.rerouteIfLate('sc', 'ignore');
+var ril = EvSeq.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var entry = require('./entry');
 
 var event = new EventEmitter();
-var scene = new Sequitur(event);
+var scene = new EvSeq(event);
 entry.klankIds.forEach((x)=>scene.at('0.0s', ril, ["/n_set", x, 'gate', 0], 'entryend'));
 scene.at('11.0s', ril, ["/n_free", entry.verbId], 'entryend');
 
