@@ -3,9 +3,9 @@ var _ = require('lodash')
 var states = require('./../state/states');
 var s = require('./../supercollider/next');
 var SCHolder = require('./../supercollider/supercollider').SCHolder;
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var EventEmitter = require('events').EventEmitter;
-var currentSeq = new Sequitur(new EventEmitter());
+var currentSeq = new EvSeq(new EventEmitter());
 var currentSubscription = null;
 var Rx = require('rx');
 var Observable = Rx.Observable;
@@ -27,7 +27,7 @@ module.exports = function(top: number, verb: number, sc: SCHolder) {
     currentSeq.softpause();
   }
   console.log("top=" + top);
-  currentSeq = tops[top] ? tops[top].scene || new Sequitur(new EventEmitter()) : currentSeq;
+  currentSeq = tops[top] ? tops[top].scene || new EvSeq(new EventEmitter()) : currentSeq;
   if (verb === states.STAGED) {
     console.log("playing " + top);
     // TODO: figure out a way to unsubscribe observables...this will probably in a memory leak

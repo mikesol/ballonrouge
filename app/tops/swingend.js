@@ -1,14 +1,14 @@
 // @flow
 
-var Sequitur = require('./../sequitur/sequitur');
+var EvSeq = require('evseq');
 var s = require('./../supercollider/next');
-var ril = Sequitur.rerouteIfLate('sc', 'ignore');
+var ril = EvSeq.rerouteIfLate('sc', 'ignore');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var swing = require('./swing');
 var common = require('./common');
 var event = new EventEmitter();
-var scene = new Sequitur(event);
+var scene = new EvSeq(event);
 var swingend = {
   'swingend': s.nextBuffer(),
 }
