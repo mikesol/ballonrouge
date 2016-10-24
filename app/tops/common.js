@@ -68,7 +68,8 @@ module.exports = {
   synthdefs: [
     'SynthDef.new("simplePitchShift",{|out, bufnum, shift, mul = 1.0| Out.ar(out, PitchShift.ar(PlayBuf.ar(2, bufnum, 1, doneAction: 2), 0.2, shift) * mul);})',
     'SynthDef.new("verbBus",{|in, out| Out.ar(out,FreeVerb2.ar(In.ar(in, 1), In.ar(in+1, 1)),0.9,0.9,0.1);})',
-    'SynthDef.new("envRamp",{|out, bufnum, inflection, panStart=1.0, panEnd=1.0, mul=1.0| var bd = BufDur.kr(bufnum); Out.ar(out, Pan2.ar(HPF.ar( PlayBuf.ar(2, bufnum, 1, doneAction: 2), Line.kr(1,1,bd)) * EnvGen.kr(Env.new([0.5,0.1,0.2,1,0],[0.2*bd,0.5*bd,0.2*bd,0.1*bd]),) * mul, Line.kr(panStart, panEnd, bd)));})'
+    'SynthDef.new("envRamp",{|out, bufnum, inflection, panStart=1.0, panEnd=1.0, mul=1.0| var bd = BufDur.kr(bufnum); Out.ar(out, Pan2.ar(HPF.ar( PlayBuf.ar(2, bufnum, 1, doneAction: 2), Line.kr(1,1,bd)) * EnvGen.kr(Env.new([0.5,0.1,0.2,1,0],[0.2*bd,0.5*bd,0.2*bd,0.1*bd]),) * mul, Line.kr(panStart, panEnd, bd)));})',
+    'SynthDef.new("vanillaPlayer",{|out, bufnum, mul = 1.0|Out.ar(out, PlayBuf.ar(2,bufnum,doneAction:2) * mul);})'
   ],
   airpop: airpop
 }
