@@ -9,8 +9,10 @@ var carrefourend = require('./carrefourend')
 var grab = require('./grab')
 var city1 = require('./city1')
 var letgo = require('./letgo')
+var windows = require('./windows')
+var ride = require('./ride')
 
 module.exports = [
-  entry, entryend, swing, swingend, carrefour, carrefourend, grab, city1, letgo, {}, {}, {}, {},
-  {}, {}, {}, {}, {}, {}, {}, {}, {}
+  entry, entryend, swing, swingend, carrefour, carrefourend, grab, city1, letgo, windows, ride,
+  {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
 ];

@@ -1,4 +1,4 @@
 // @flow
 
 var vanilla = require('./vanilla');
-module.exports = vanilla('letgo');
+module.exports = vanilla('windows');

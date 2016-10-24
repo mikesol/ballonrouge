@@ -1,16 +1,5 @@
 // @flow
 
-/**
-  API
-  var a = sequitur(e)
-    .at('10s',key, val)
-    .AT('15s',fn, fn);
-
-  a.play();
-  a.pause();
-  a.stop();
-  a.seek('10s');
-*/
 var _ = require('lodash');
 var NanoTimer = require('nanotimer');
 var SortedArray = require('sorted-array')
