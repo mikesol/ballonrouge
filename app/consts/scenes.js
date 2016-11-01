@@ -14,9 +14,10 @@ module.exports = [
   'Assis sur le ballon',
   'Il perd son ballon',
   'Traversée magique du ballon',
-  'Deuxième ville',
   'Il fout le bordel dans l\'immeuble',
-  'Fin du bordel',
   'Son ami la lampe le sauve',
-  'La lampe se transforme en pont',
+  'Dors mon p\'tit quinquin',
+  'Jardin de lumières',
+  'Poursuite',
+  'Final'
 ];
