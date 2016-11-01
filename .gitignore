@@ -5,3 +5,4 @@ redballoon.db
 .herokuaddr.yaml
 *.aif
 build
+.DS_Store
