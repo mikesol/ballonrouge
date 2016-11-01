@@ -24,7 +24,7 @@
     "cookie-parser": "^1.4.3",
     "debug": "~2.2.0",
     "electron": "^1.4.3",
-    "evseq": "0.0.3",
+    "evseq": "0.0.4",
     "express": "~4.13.4",
     "express-bootstrap-service": "^1.0.0",
     "jade": "~1.11.0",

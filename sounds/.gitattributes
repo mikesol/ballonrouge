@@ -95,3 +95,4 @@ singleHonk.aif filter=lfs diff=lfs merge=lfs -text
 trainSounds.aif filter=lfs diff=lfs merge=lfs -text
 letgo.aif filter=lfs diff=lfs merge=lfs -text
 windows.aif filter=lfs diff=lfs merge=lfs -text
+cross.aif filter=lfs diff=lfs merge=lfs -text
