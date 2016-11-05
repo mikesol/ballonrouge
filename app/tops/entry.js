@@ -39,6 +39,6 @@ module.exports = {
   scene: scene,
   event: event,
   synthdefs: [
-    'SynthDef.new("klankPitchShift",{|out, bufnum, shift, mul = 1.0, gate = 1|Out.ar(out, EnvGen.kr(Env.asr(0.01,1,9,-1),gate,doneAction:2)*HPF.ar(PitchShift.ar(Klank.ar(`[[200, 1040, 2481, 3605], nil, [1, 1, 1, 1]], PlayBuf.ar(2,bufnum)), 0.2, shift), 8000) * mul);})'
+    'SynthDef.new("klankPitchShift",{|out, bufnum, shift, mul = 1.0, gate = 1|Out.ar(out, EnvGen.kr(Env.asr(0.01,1,9,-1),gate,doneAction:2)*HPF.ar(PitchShift.ar(HPF.ar(Klank.ar(`[[200, 1040, 2481, 3605], nil, [1, 1, 1, 1]], PlayBuf.ar(2,bufnum)), 1000), 0.2, shift), 8000) * mul);})'
   ]
 }
