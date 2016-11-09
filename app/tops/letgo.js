@@ -15,9 +15,9 @@ var chainId = s.nextNodeID()
 var event = new EventEmitter();
 var scene = new EvSeq(event);
 
-scene.at('0.0s', ril, ["/s_new", "chainPlayer", chainId, 0, common.group, "out", 0, "bufnum", chain['letgo']]);
-scene.at('10.0s', ril, ["/s_new", "chainPlayer", chainId, 0, common.group, "out", 0, "bufnum", chain['windows']]);
-scene.at('17.0s', ril, ["/s_new", "chainPlayer", chainId, 0, common.group, "out", 0, "bufnum", chain['ride']]);
+scene.at('0.0s', ril, ["/s_new", "vanillaPlayer", chainId, 0, common.group, "out", 0, "bufnum", chain['letgo']]);
+scene.at('10.0s', ril, ["/s_new", "vanillaPlayer", chainId, 0, common.group, "out", 0, "bufnum", chain['windows']]);
+scene.at('17.0s', ril, ["/s_new", "vanillaPlayer", chainId, 0, common.group, "out", 0, "bufnum", chain['ride']]);
 
 module.exports = {
     buffers: chain,
