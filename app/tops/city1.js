@@ -53,7 +53,7 @@ var score = [
     pan: _.random(-1, 1, true),
     depth: _.random(0.1, 0.6, true)
   }));
-  
+
 for (var i = 0; i < score.length; i++) {
   scene.at((41 + score[i].offset) + 's', ril, ["/s_new", "city1CarHorn", s.nextNodeID(), 0, common.group, "out", 4, "bufnum", buffers['331540__jmpeeples__2000-nissan-maxima-car-horn'], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth]);
 }
@@ -73,7 +73,7 @@ module.exports = {
 	buffy = PlayBuf.ar(1,bufnum,BufRateScale.kr(bufnum)*mouseY, doneAction: 2);
 	celing = 10000;
 	hpf = HPF.ar(buffy, celing * (1 - mouseY));
-	Out.ar(out,Pan2.ar(hpf * (0.5 + (mouseY * 0.5))*SinOsc.kr(0.2,0,0.2,0.9), EnvGen.kr(Env.new([-1,1,-0.5,0.5,0,0],[4,4,4,4,100]))));
+	Out.ar(out,Pan2.ar(hpf * (0.3 + (mouseY * 0.3))*SinOsc.kr(0.2,0,0.2,0.9), EnvGen.kr(Env.new([-1,1,-0.5,0.5,0,0],[4,4,4,4,100]))));
 })`,
     `SynthDef.new("city1CarHorn",{arg out, bufnum, pitch, pan, depth;
 	var buffy, celing;
