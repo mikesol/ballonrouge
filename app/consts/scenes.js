@@ -13,6 +13,7 @@ module.exports = [
   'Assis sur le ballon',
   'Il perd son ballon',
   'Traversée magique du ballon',
+  'Fin de traversée',
   'Il fout le bordel dans l\'immeuble',
   'Son ami la lampe le sauve',
   'Dors mon p\'tit quinquin',
