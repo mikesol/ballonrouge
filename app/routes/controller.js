@@ -4,7 +4,7 @@ var state = require('./../state/state');
 var tops = require('./../consts/scenes');
 
 
-var proddev = function(prod: boolean) {
+var proddev = function(prod: string) {
   var router = express.Router();
   /* GET home page. */
   return router.get('/', function(req, res, next) {
@@ -14,7 +14,7 @@ var proddev = function(prod: boolean) {
         res.render('loading');
       } else {
         console.log('rendering controller page ' + st.top);
-        res.render(prod ? 'controllerprod' : 'controllerdev', {
+        res.render(prod == 'prod' ? 'controllerprod' : prod == 'dev' ? 'controllerdev' : 'simplecontroller', {
           now: st.top,
           nowText: tops[st.top],
           states: require('./../state/states'),
@@ -24,4 +24,4 @@ var proddev = function(prod: boolean) {
     });
   });
 }
-module.exports = proddev
+module.exports =  proddev
