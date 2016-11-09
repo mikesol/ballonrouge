@@ -9,8 +9,6 @@ module.exports = [
   'Prise en main du ballon',
   'Première ville',
   'Le garçon relâche le ballon',
-  'Fenêtres',
-  'Assis sur le ballon',
   'Il perd son ballon',
   'Traversée magique du ballon',
   'Fin de traversée',
