@@ -39,8 +39,8 @@ var increase = function(now: number, final: number) {
     gap = minGap;
     rand = Math.random() * minRand;
   } else {
-    gap = (((now * 1.0 / final)**accel)*(maxGap - minGap)) + minGap;
-    rand = ((((now * 1.0 / final)**accel)*(maxRand - minRand)) + minRand) * Math.random();
+    gap = (Math.pow((now * 1.0 / final),accel)*(maxGap - minGap)) + minGap;
+    rand = ((Math.pow((now * 1.0 / final),accel)*(maxRand - minRand)) + minRand) * Math.random();
   }
   return gap + rand;
 }
@@ -50,7 +50,7 @@ scene.at('0.0s', ril, ["/s_new", "city1Gate", stormGateId, 0, common.group, "in"
 for (var j = 0; j < nTimes; j++) {
   var gap = 0.05 + (Math.random() * 0.7);
   var pan = (2 * Math.random()) - 1;
-  var fillVal = 'fill'+(Math.floor(Math.random() * 6));
+  var fillVal = _.sample(_.keys(buffers))
   var base = 0.5 + (Math.random() * 0.9);
   for (var i = 0; i < 7+(Math.random()*20); i++) {
     scene.at(t + 's', ril, ["/s_new", "funWithFill", s.nextNodeID(), 0, common.group,
