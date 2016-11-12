@@ -11,10 +11,12 @@ var city1end = require('./city1end')
 var cross = require('./cross')
 var mpqq_2 = require('./mpqq_2')
 var storm = require('./storm')
+var stormend = require('./stormend')
 var garden = require('./garden')
 var final = require('./final')
+var finalend = require('./finalend')
 
 module.exports = [
   entry, entryend, swing, swingend, grab, city1, letgo,
-  city1end, cross, mpqq_2, storm, garden, final, {}
+  city1end, cross, mpqq_2, storm, stormend, garden, final, finalend, {}
 ];

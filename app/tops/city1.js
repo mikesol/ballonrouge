@@ -64,11 +64,14 @@ var score = [
 
 // repeat 3 times
 
-var scoreOffsets = [41, 72, 103];
+var scoreOffsets = [31, 62, 93];
 
+var groupCtr = 0;
+let groupL = 12;
 for (var j = 0; j < scoreOffsets.length; j++) {
   for (var i = 0; i < score.length; i++) {
-    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "city1CarHorn", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers['331540__jmpeeples__2000-nissan-maxima-car-horn'], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth]);
+    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "city1CarHorn", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers['331540__jmpeeples__2000-nissan-maxima-car-horn'], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth], "group"+(Math.floor(groupCtr / groupL)));
+    groupCtr += 1;
   }
 }
 

@@ -7,7 +7,6 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var aiftools = require('./../aiftools/aiftools');
 var common = require('./common')
-var storm = require('./storm')
 
 console.log(s);
 
@@ -21,7 +20,6 @@ var scene = new EvSeq(event);
 
 var lights = [s.nextNodeID(), s.nextNodeID(), s.nextNodeID(), s.nextNodeID()];
 
-scene.at('0.0s', ril, ["/n_set", storm.stormGateId, "gate", 0]);
 scene.at('0.1s', ril, ["/s_new", "lightSaber", lights[0], 0, common.group, "out", 0,"bufnum",buffers.light1,"rate",1.0,"hpfreq",100,"vol",0.6,"gate",1.0]);
 scene.at('10s', ril, ["/s_new", "lightSaber", lights[1], 0, common.group, "out", 0,"bufnum",buffers.light1,"rate",1.1,"hpfreq",1000,"vol",0.8,"gate",1.0]);
 scene.at('20s', ril, ["/s_new", "lightSaber", lights[2], 0, common.group, "out", 0,"bufnum",buffers.light1,"rate",0.9,"hpfreq",2000,"vol",0.8,"gate",1.0]);

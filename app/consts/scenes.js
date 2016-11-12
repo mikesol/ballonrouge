@@ -12,6 +12,8 @@ module.exports = [
   'Le ballon nous taquine', // sons de grincement
   'Dors mon p\'tit quinquin',
   'Tempête',
+  'Fin tempête',
   'Jardin de lumières',
-  'Final'
+  'Final',
+  'Saluons !'
 ];

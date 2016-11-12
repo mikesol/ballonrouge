@@ -53,7 +53,7 @@ var stormGateId = s.nextNodeID();
 scene.at('0.0s', ril, ["/s_new", "city1Gate", stormGateId, 0, common.group, "in", 6, "out", 0]);
 
 for (var j = 0; j < nTimes; j++) {
-  var gap = 0.05 + (Math.random() * 0.7);
+  var gap = 0.05 + (Math.random() * 0.2);
   var pan = (2 * Math.random()) - 1;
   var fillVal = _.sample(_.keys(buffers))
   var base = 0.5 + (Math.random() * 0.9);

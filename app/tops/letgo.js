@@ -10,16 +10,21 @@ var chain = {}
 chain['letgo'] = s.nextBuffer();
 chain['windows'] = s.nextBuffer();
 chain['ride'] = s.nextBuffer();
+chain['thierry3'] = s.nextBuffer();
+chain['saw'] = s.nextBuffer();
 
 var event = new EventEmitter();
 var scene = new EvSeq(event);
 
 scene.at('0.0s', ril, ["/s_new", "vanillaPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", chain['letgo']]);
-scene.at('10.0s', ril, ["/s_new", "vanillaPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", chain['windows']]);
-scene.at('17.0s', ril, ["/s_new", "vanillaPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", chain['ride']]);
-
+for (var j = 0; j < 2; j++) {
+  scene.at(((j * 40) + 10.0) + 's', ril, ["/s_new", "vanillaPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", chain['windows']]);
+  scene.at(((j * 40) + 19.0) + 's', ril, ["/s_new", "vanillaPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", chain['ride']]);
+  scene.at(((j * 40) + 32.0) + 's', ril, ["/s_new", "vanillaPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", chain['thierry3']]);
+  scene.at(((j * 40) + 40.0) + 's', ril, ["/s_new", "vanillaPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", chain['saw']]);
+}
 module.exports = {
-    buffers: chain,
-    scene: scene,
-    event: event
+  buffers: chain,
+  scene: scene,
+  event: event
 }
