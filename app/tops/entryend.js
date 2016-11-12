@@ -10,7 +10,6 @@ var entry = require('./entry');
 var event = new EventEmitter();
 var scene = new EvSeq(event);
 entry.klankIds.forEach((x)=>scene.at('0.0s', ril, ["/n_set", x, 'gate', 0], 'entryend'));
-scene.at('11.0s', ril, ["/n_free", entry.verbId], 'entryend');
 
 module.exports = {
   scene: scene,

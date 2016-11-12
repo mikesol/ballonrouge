@@ -7,15 +7,17 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var common = require('./common');
 var cross = {
-  'cross': s.nextBuffer(),
+  'theirry2': s.nextBuffer(),
+  'thierry5': s.nextBuffer(),
+  'squeal2': s.nextBuffer(),
 }
-var crossId = s.nextNodeID()
 var event = new EventEmitter();
 var scene = new EvSeq(event);
-scene.at('0.0s', ril, ["/s_new", "crossPlayer", crossId, 0, common.group, "out", 0, "bufnum", cross.cross]);
+scene.at('0.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.theirry2]);
+scene.at('15.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.squeal2]);
+scene.at('25.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.thierry5]);
 
 module.exports = {
-  crossId: crossId,
   buffers: cross,
   scene: scene,
   event: event,

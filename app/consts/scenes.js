@@ -5,17 +5,13 @@ module.exports = [
   'Fin entrée public',
   'Balançoire',
   'Fin balançoire',
-  'Arrivée du ballon',
-  'Prise en main du ballon',
+  'Arrivée du ballon', // 60s d'écart
   'Première ville',
-  'Le garçon relâche le ballon',
+  'Action',
   'Il perd son ballon',
-  'Traversée magique du ballon',
-  'Fin de traversée',
-  'Il fout le bordel dans l\'immeuble',
-  'Son ami la lampe le sauve',
+  'Le ballon nous taquine', // sons de grincement
   'Dors mon p\'tit quinquin',
+  'Tempête',
   'Jardin de lumières',
-  'Poursuite',
   'Final'
 ];

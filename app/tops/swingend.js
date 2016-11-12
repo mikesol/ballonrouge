@@ -17,7 +17,7 @@ var buffers = _.assign({}, swing);
 
 scene.at('0.0s', ril, ["/n_set", swing.swingId, 'gate', 0]);
 scene.at('0.0s', ril, ["/s_new", "swingPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", swingend.swingend]);
-
+common.airpop(20, 15, 25, 30, 4, scene);
 
 module.exports = {
   scene: scene,
