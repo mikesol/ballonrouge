@@ -20,7 +20,7 @@ var event = new EventEmitter();
 var scene = new EvSeq(event);
 
 for (var i = 0; i < garden.lights.length; i ++) {
-  scene.at('0.0s', ril, ["/n_free", garden.lights[i]]);
+  scene.at('0.0s', ril, ["/n_set", garden.lights[i], "gate", 0]);
 }
 
 common.airpopRand(200, 10, 20, 10, 4, scene);

@@ -7,6 +7,7 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var aiftools = require('./../aiftools/aiftools');
 var common = require('./common')
+var mpqq_2 = require('./mpqq_2')
 
 console.log(s);
 
@@ -44,6 +45,10 @@ var increase = function(now: number, final: number) {
   }
   return gap + rand;
 }
+
+
+scene.at('0.0s', ril, ["/n_set", mpqq_2.mpqq_2Id, "gate", 0.0]);
+
 var stormGateId = s.nextNodeID();
 scene.at('0.0s', ril, ["/s_new", "city1Gate", stormGateId, 0, common.group, "in", 6, "out", 0]);
 
