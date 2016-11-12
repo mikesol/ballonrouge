@@ -48,9 +48,8 @@ ipcMain.on('asynchronous-message', (event, arg) => {
             compileproc.on('exit', function() {
               app.relaunch();
               app.exit();
-            })
+            });
           });
-          })
         });
       });
   } else if (arg == 'follow') {
