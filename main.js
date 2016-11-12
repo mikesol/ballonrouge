@@ -43,8 +43,13 @@ ipcMain.on('asynchronous-message', (event, arg) => {
           var npmproc = require('child_process').exec('npm install')
           npmproc.stdout.pipe(process.stdout)
           npmproc.on('exit', function() {
-            app.relaunch();
-            app.exit();
+            var compileproc = require('child_process').exec('npm run compile')
+            compileproc.stdout.pipe(process.stdout)
+            compileproc.on('exit', function() {
+              app.relaunch();
+              app.exit();
+            })
+          });
           })
         });
       });
