@@ -66,7 +66,7 @@ var airpopRobust = function(ntimes: number, randlow: number, randhi: number, sta
     scene.at(starttime + 's', ril, ["/s_new", "envRamp", s.nextNodeID(), 0, group, "out", outbus, "bufnum", airbufs[air], "inflection", 0.2, "mul", 1.5], randy);
     var wait = starttime + bufdurs[air]
     for (var j = 0; j < _.random(8, 12); j++) {
-      scene.at(wait + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, group, "out", 0, "bufnum", popbufs[pop], "shift", (dir < 0 ? shiftDown : dir > 0 ? shiftUp : shiftRand)(j), "mul", 0.8 / Math.log(j + 3)], randy);
+      scene.at(wait + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, group, "out", 0, "bufnum", popbufs[pop], "shift", (dir < 0 ? shiftDown : dir > 0 ? shiftUp : shiftRand)(j), "mul", 0.67 / Math.log(j + 3)], randy);
       wait += ((Math.log(i + 2)) * 0.3);
     }
   }

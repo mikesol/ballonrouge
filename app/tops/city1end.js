@@ -12,7 +12,7 @@ var event = new EventEmitter();
 var scene = new EvSeq(event);
 
 // can also use carrefourPlayer
-scene.at('0.0s', ril, ["/n_free", city1.cityGateId], 'cityGateEnd');
+scene.at('0.0s', ril, ["/n_set", city1.cityGateId, "gate", 0], 'cityGateEnd');
 
 
 module.exports = {

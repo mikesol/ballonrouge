@@ -40,43 +40,8 @@ for (var j = 0; j < bikeOffsets.length; j++) {
   }
 }
 
-var P1 = 0.69;
-var P2 = 0.776;
-var P3 = 0.886;
-var score = [
-  [0, P1],
-  [4.1, P3],
-  [9, P1],
-  [11, P2],
-  [12.6, P3],
-  [15, P2],
-  [18, P1],
-  [19.5, P3],
-  [21, P2],
-  [23.2, P2],
-  [27, P1]
-].map((i) => ({
-  offset: i[0],
-  pitch: i[1],
-  pan: _.random(-1, 1, true),
-  depth: _.random(0.1, 0.6, true)
-}));
-
-// repeat 3 times
-
-var scoreOffsets = [31, 62, 93];
-
-var groupCtr = 0;
-let groupL = 12;
-for (var j = 0; j < scoreOffsets.length; j++) {
-  for (var i = 0; i < score.length; i++) {
-    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "city1CarHorn", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers['331540__jmpeeples__2000-nissan-maxima-car-horn'], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth], "group"+(Math.floor(groupCtr / groupL)));
-    groupCtr += 1;
-  }
-}
-
 // airpop goes to 4, which is where our entry bus is
-common.airpop(200, 10, 20, 0, 4, scene);
+common.airpopUp(50, 10, 20, 0, 4, scene);
 
 module.exports = {
   cityGateId: cityGateId,
