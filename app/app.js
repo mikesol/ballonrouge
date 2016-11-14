@@ -37,8 +37,9 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../bower_components')));
 
 app.use('/', routes);
-app.use('/prod', controller(true));
-app.use('/dev', controller(false));
+app.use('/prod', controller('prod'));
+app.use('/dev', controller('dev'));
+app.use('/simple', controller('simple'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

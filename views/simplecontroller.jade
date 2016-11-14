@@ -1,0 +1,4 @@
+extends simplecontrollerlayout
+block content
+  button.yuuuge(style="width:100%;height:150px;font-size:5em;" onClick="setstate({top:"+(now + 1)+",verb:"+states.STAGED+"})")= now
+  h1= nowText

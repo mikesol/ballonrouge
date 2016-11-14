@@ -34,10 +34,20 @@ var buffers = _.assign({}, popbufs, airbufs)
 var bufdurs = aiftools.bufdurs(_.keys(buffers));
 var group = 0;
 
-// outbus only applies to air because we want the pops to be unaltered
-// kinda kludgy...fix
-var airpop = function(ntimes: number, randlow: number, randhi: number, starttime: number,
-  outbus: number, scene: EvSeq) {
+var shiftDown = function(j: number) {
+  return 1.2 - (j * 0.03);
+}
+
+var shiftUp = function(j: number) {
+  return 1.0 + (j * 0.03);
+}
+
+var shiftRand = function(j: number) {
+  return 0.9 + (Math.random()*0.4)
+}
+
+var airpopRobust = function(ntimes: number, randlow: number, randhi: number, starttime: number,
+  outbus: number, dir: number, scene: EvSeq) {
   var prevair = null;
   var prevpop = null;
   for (var i = 0; i < ntimes; i++) {
@@ -56,10 +66,27 @@ var airpop = function(ntimes: number, randlow: number, randhi: number, starttime
     scene.at(starttime + 's', ril, ["/s_new", "envRamp", s.nextNodeID(), 0, group, "out", outbus, "bufnum", airbufs[air], "inflection", 0.2, "mul", 1.5], randy);
     var wait = starttime + bufdurs[air]
     for (var j = 0; j < _.random(8, 12); j++) {
-      scene.at(wait + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, group, "out", 0, "bufnum", popbufs[pop], "shift", 1.2 - (j * 0.03), "mul", 1.0 / Math.log(j + 3)], randy);
+      scene.at(wait + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, group, "out", 0, "bufnum", popbufs[pop], "shift", (dir < 0 ? shiftDown : dir > 0 ? shiftUp : shiftRand)(j), "mul", 0.67 / Math.log(j + 3)], randy);
       wait += ((Math.log(i + 2)) * 0.3);
     }
   }
+}
+
+// outbus only applies to air because we want the pops to be unaltered
+// kinda kludgy...fix
+var airpop = function(ntimes: number, randlow: number, randhi: number, starttime: number,
+  outbus: number, scene: EvSeq) {
+    airpopRobust(ntimes, randlow, randhi, starttime, outbus, -1, scene);
+}
+
+var airpopUp = function(ntimes: number, randlow: number, randhi: number, starttime: number,
+  outbus: number, scene: EvSeq) {
+    airpopRobust(ntimes, randlow, randhi, starttime, outbus, 1, scene);
+}
+
+var airpopRand = function(ntimes: number, randlow: number, randhi: number, starttime: number,
+  outbus: number, scene: EvSeq) {
+    airpopRobust(ntimes, randlow, randhi, starttime, outbus, 0, scene);
 }
 
 module.exports = {
@@ -71,5 +98,7 @@ module.exports = {
     'SynthDef.new("envRamp",{|out, bufnum, inflection, panStart=1.0, panEnd=1.0, mul=1.0| var bd = BufDur.kr(bufnum); Out.ar(out, Pan2.ar(HPF.ar( PlayBuf.ar(2, bufnum, 1, doneAction: 2), Line.kr(1,1,bd)) * EnvGen.kr(Env.new([0.5,0.1,0.2,1,0],[0.2*bd,0.5*bd,0.2*bd,0.1*bd]),) * mul, Line.kr(panStart, panEnd, bd)));})',
     'SynthDef.new("vanillaPlayer",{|out, bufnum, mul = 1.0|Out.ar(out, PlayBuf.ar(2,bufnum,doneAction:2) * mul);})'
   ],
-  airpop: airpop
+  airpop: airpop,
+  airpopUp: airpopUp,
+  airpopRand: airpopRand
 }
