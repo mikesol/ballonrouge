@@ -1,5 +1,6 @@
 // @flow
 
+// scenes in the show
 module.exports = [
   'Entrée public',
   'Fin entrée public',
