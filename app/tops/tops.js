@@ -20,7 +20,7 @@ var final = require('./final')
 var finalend = require('./finalend')
 
 module.exports = [
-  entry, entryend, swing, swingend, grab, city1, letgo,
+  entry, entryend, swing, swingend, grab, city1,
   city1end, cross, crossend, friends, mpqq_2, mpqq_2end,
   storm, stormend, garden, final, finalend, {}
 ];
