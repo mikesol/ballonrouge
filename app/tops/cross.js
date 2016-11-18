@@ -16,13 +16,15 @@ var cross = {
 }
 var event = new EventEmitter();
 var scene = new EvSeq(event);
-scene.at('0.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.theirry2]);
-scene.at('15.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.squeal2]);
-scene.at('25.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.thierry5]);
-scene.at('39.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.thierry1]);
-scene.at('50.0s', ril, ["/s_new", "crossPlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", cross.ride]);
+var nodes = [s.nextNodeID(),s.nextNodeID(),s.nextNodeID(),s.nextNodeID(),s.nextNodeID()];
+scene.at('0.0s', ril, ["/s_new", "crossPlayer", nodes[0], 0, common.group, "out", 0, "bufnum", cross.theirry2, "mul", 0.7]);
+scene.at('15.0s', ril, ["/s_new", "crossPlayer", nodes[1], 0, common.group, "out", 0, "bufnum", cross.squeal2, "mul", 0.7]);
+scene.at('25.0s', ril, ["/s_new", "crossPlayer", nodes[2], 0, common.group, "out", 0, "bufnum", cross.thierry5, "mul", 0.7]);
+scene.at('39.0s', ril, ["/s_new", "crossPlayer", nodes[3], 0, common.group, "out", 0, "bufnum", cross.thierry1, "mul", 0.7]);
+scene.at('50.0s', ril, ["/s_new", "crossPlayer", nodes[4], 0, common.group, "out", 0, "bufnum", cross.ride, "mul", 0.7]);
 
 module.exports = {
+  nodes: nodes,
   buffers: cross,
   scene: scene,
   event: event,
