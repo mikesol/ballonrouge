@@ -28,7 +28,7 @@ var scene = new EvSeq(event);
 
 //scene.at('0.0s', ril, ["/s_new", "city1Player", s.nextNodeID(), 0, common.group, "out", 4, "bufnum", buffers.earlyMorningCity]);
 
-var bikeOffsets = [0, 45, 90];
+var bikeOffsets = [0, 45, 90, 135, 180];
 
 for (var j = 0; j < bikeOffsets.length; j++) {
   scene.at((bikeOffsets[j]+0.0)+'s', ril, ["/s_new", "city1Bike", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers['330956__nikiforov5000__bicycle-bell'], "pitch", 1.0, "pan", 0, "depth", 0.5, "mul", 0.4]);
@@ -39,47 +39,13 @@ for (var j = 0; j < bikeOffsets.length; j++) {
     scene.at((bikeOffsets[j]+14.6 + (i * 0.1)) + 's', ril, ["/s_new", "city1Bike", s.nextNodeID(), 0, common.group,
       "out", 6, "bufnum", buffers['330956__nikiforov5000__bicycle-bell'], "pitch", 0.8 + randVal + (i * 0.05), "pan", -0.95 + (i * 0.1),
       "depth", 1.0 - (i * 0.1), "mul", 0.1
-    ]);
+    ], "bikeSnake"+j);
   }
 }
 
-var P1 = 0.69;
-var P2 = 0.776;
-var P3 = 0.886;
-var score = [
-  [0, P1],
-  [4.1, P3],
-  [9, P1],
-  [11, P2],
-  [12.6, P3],
-  [15, P2],
-  [18, P1],
-  [19.5, P3],
-  [21, P2],
-  [23.2, P2],
-  [27, P1]
-].map((i) => ({
-  offset: i[0],
-  pitch: i[1],
-  pan: _.random(-1, 1, true),
-  depth: _.random(0.1, 0.6, true)
-}));
-
-// repeat 3 times
-
-var scoreOffsets = [0, 31, 62];
-
-var groupCtr = 0;
-let groupL = 6;
-for (var j = 0; j < scoreOffsets.length; j++) {
-  for (var i = 0; i < score.length; i++) {
-    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "city1CarHorn", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers['331540__jmpeeples__2000-nissan-maxima-car-horn'], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth], "group"+(Math.floor(groupCtr / groupL)));
-    groupCtr += 1;
-  }
-}
 
 // airpop goes to 4, which is where our entry bus is
-common.airpopUp(50, 10, 20, 0, 4, scene);
+common.airpopUp(60, 18, 30, 0, 4, scene);
 
 module.exports = {
   buffers: buffers,

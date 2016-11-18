@@ -1,19 +1,22 @@
 // @flow
 
 module.exports = [
-  'Entrée public',
-  'Fin entrée public',
-  'Balançoire',
-  'Fin balançoire',
-  'Arrivée du ballon', // 60s d'écart
-  'Première ville',
-  'Action',
-  'Il perd son ballon',
-  'Le ballon nous taquine', // sons de grincement
-  'Dors mon p\'tit quinquin',
-  'Tempête',
-  'Fin tempête',
-  'Jardin de lumières',
-  'Final',
-  'Saluons !'
+  'entrée public',
+  'fin entrée public',
+  'balançoire',
+  'fin balançoire',
+  'ballon',
+  'ville',
+  'stop ville',
+  'il perd son ballon',
+  'cache-cache',
+  'stop cache-cache',
+  'la minute amicale',
+  'dors mon p\'tit',
+  'stop mon p\'tit',
+  'tempête',
+  'fin tempête',
+  'jardin de lumières',
+  'vole',
+  'saluons!'
 ];

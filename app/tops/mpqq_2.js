@@ -21,6 +21,6 @@ module.exports = {
   event: event,
   // for now same as swing player
   synthdefs: [
-  'SynthDef.new("mpqq_2Player",{|out, bufnum, mul = 1.0, gate = 1|Out.ar(out, EnvGen.kr(Env.asr(0.01,1,8,-1),gate,doneAction:2) * PlayBuf.ar(2,bufnum,doneAction:2) * mul);})'
+  'SynthDef.new("mpqq_2Player",{|out, bufnum, mul = 1.0, gate = 1|Out.ar(out, EnvGen.kr(Env.asr(0.01,1,5,-1),gate,doneAction:2) * PlayBuf.ar(2,bufnum,doneAction:2) * mul);})'
 ]
 }
