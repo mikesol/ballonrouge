@@ -8,7 +8,6 @@ module.exports = [
   'ballon',
   'ville',
   'stop ville',
-  'il perd son ballon',
   'cache-cache',
   'stop cache-cache',
   'la minute amicale',

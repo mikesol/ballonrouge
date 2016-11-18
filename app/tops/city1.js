@@ -25,7 +25,7 @@ scene.at('0.0s', ril, ["/s_new", "city1Gate", cityGateId, 0, common.group, "in",
 
 //scene.at('0.0s', ril, ["/s_new", "city1Player", s.nextNodeID(), 0, common.group, "out", 4, "bufnum", buffers.earlyMorningCity]);
 
-var bikeOffsets = [0, 45, 90, 135, 180, 225, 270];
+var bikeOffsets = [0, 35, 70, 105, 140, 175, 210, 245, 280];
 
 for (var j = 0; j < bikeOffsets.length; j++) {
   scene.at((bikeOffsets[j]+0.0)+'s', ril, ["/s_new", "city1Bike", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers['330956__nikiforov5000__bicycle-bell'], "pitch", 1.0, "pan", 0, "depth", 0.5, "mul", 0.4]);
@@ -59,12 +59,12 @@ var score = [
   offset: i[0],
   pitch: i[1],
   pan: _.random(-1, 1, true),
-  depth: _.random(0.1, 0.6, true)
+  depth: _.random(0.1, 0.4, true)
 }));
 
 // repeat 3 times
 
-var scoreOffsets = [45, 76, 107, 138, 159, 190];
+var scoreOffsets = [45, 90, 135, 180, 225, 270];
 
 var groupCtr = 0;
 let groupL = 6;
