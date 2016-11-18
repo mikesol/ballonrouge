@@ -29,12 +29,12 @@ let ACCEL = 0.75;
 let HALF = NEV / 2;
 for (var i = 0; i < HALF; i++) {
   var place = TOTAL * SHIFT * Math.pow(i / HALF, ACCEL);
-  scene.at(place + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, common.group, "out", 0, "bufnum", _.sample(friends), "shift", 0.8 + (Math.random()*0.5), "mul", 0.3 + (Math.random() * 0.3)]);
+  scene.at(place + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, common.group, "out", 0, "bufnum", _.sample(friends), "shift", 0.7 + (Math.random()*0.7), "mul", 0.3 + (Math.random() * 0.3)]);
 }
 
 for (var i = 0; i < HALF; i++) {
   var place = (TOTAL * SHIFT) + ((TOTAL * (1 - SHIFT)) * Math.pow(i / HALF, 1 / ACCEL));
-  scene.at(place + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, common.group, "out", 0, "bufnum", _.sample(friends), "shift", 0.8 + (Math.random()*0.5), "mul", 0.3 + (Math.random() * 0.3)]);
+  scene.at(place + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, common.group, "out", 0, "bufnum", _.sample(friends), "shift", 0.7 + (Math.random()*0.7), "mul", 0.3 + (Math.random() * 0.3)]);
 }
 
 module.exports = {
