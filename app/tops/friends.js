@@ -48,7 +48,7 @@ var scaleGen = function(st, n, step_p, step_t) {
 let t = 0;
 t = scaleGen(t, 8, 0.04, 0.05);
 t = scaleGen(t, 8, 0.07, 0.05);
-t = scaleGen(t, 24, 0.04, 0.05);
+t = scaleGen(t, 8, 0.1, 0.03);
 
 module.exports = {
   buffers: friends,
