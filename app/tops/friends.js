@@ -27,15 +27,28 @@ let NEV = 100;
 let ACCEL = 0.75;
 
 let HALF = NEV / 2;
-for (var i = 0; i < HALF; i++) {
-  var place = TOTAL * SHIFT * Math.pow(i / HALF, ACCEL);
-  scene.at(place + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, common.group, "out", 0, "bufnum", _.sample(friends), "shift", 0.7 + (Math.random()*0.7), "mul", 0.3 + (Math.random() * 0.3)]);
+
+var scale = function(st, n, start_p, step_p, step_t) {
+  for (var i = 0; i < n; i++) {
+    scene.at(st + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, common.group, "out", 0, "bufnum", _.sample(friends), "shift", start_p + (step_p * i), "mul", 0.65]);
+    st += step_t;
+  }
+  return st;
 }
 
-for (var i = 0; i < HALF; i++) {
-  var place = (TOTAL * SHIFT) + ((TOTAL * (1 - SHIFT)) * Math.pow(i / HALF, 1 / ACCEL));
-  scene.at(place + 's', ril, ["/s_new", "simplePitchShift", s.nextNodeID(), 1, common.group, "out", 0, "bufnum", _.sample(friends), "shift", 0.7 + (Math.random()*0.7), "mul", 0.3 + (Math.random() * 0.3)]);
+var scaleGen = function(st, n, step_p, step_t) {
+  var start_p = 0.7;
+  for (var i = 0; i < n; i++) {
+    st = scale(st, 12, start_p, step_p, step_t);
+    start_p += step_p;
+  }
+  return st;
 }
+
+let t = 0;
+t = scaleGen(t, 8, 0.04, 0.05);
+t = scaleGen(t, 8, 0.07, 0.05);
+t = scaleGen(t, 24, 0.04, 0.05);
 
 module.exports = {
   buffers: friends,
