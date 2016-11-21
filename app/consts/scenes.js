@@ -15,7 +15,6 @@ module.exports = [
   'dors mon p\'tit',
   'stop mon p\'tit',
   'tempête',
-  'fin tempête',
   'jardin de lumières',
   'vole',
   'saluons!'

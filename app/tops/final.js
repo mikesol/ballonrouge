@@ -12,7 +12,8 @@ var garden = require('./garden')
 console.log(s);
 
 var buffers = {
-  'grab': s.nextBuffer()
+  'grab': s.nextBuffer(),
+  'shaker': s.nextBuffer()
 }
 
 var bufdurs = aiftools.bufdurs(_.keys(buffers));
@@ -69,6 +70,11 @@ scene.at(beat(15), ril, ["/s_new", "finalJoy", s.nextNodeID(), 0, common.group, 
 scene.at(beat(16), ril, ["/s_new", "finalJoy", s.nextNodeID(), 0, common.group, "out",6,"bufnum",buffers.grab,"rate",1.0,"pitch",1,"vol",1.0]);
 scene.at(beat(17), ril, ["/s_new", "finalJoy", s.nextNodeID(), 0, common.group, "out",6,"bufnum",buffers.grab,"rate",1.0,"pitch",0.92,"vol",1.0]);
 
+var shakerTime = 15;
+for (var i = 0; i < 6; i++) {
+  scene.at(shakerTime+'s', ril, ["/s_new", "shakePlayer", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", buffers.shaker, "mul", 0.7]);
+  shakerTime += 14;
+}
 
 module.exports = {
   finalGateId: finalGateId,
@@ -76,6 +82,7 @@ module.exports = {
   scene: scene,
   event: event,
   synthdefs: [
-    'SynthDef.new("finalJoy",{|out,bufnum,rate,pitch,vol|Out.ar(0,vol*PitchShift.ar(PlayBuf.ar(2,bufnum,BufRateScale.kr(bufnum)*rate,doneAction:2),0.2, pitch))})'
+    'SynthDef.new("finalJoy",{|out,bufnum,rate,pitch,vol|Out.ar(0,vol*PitchShift.ar(PlayBuf.ar(2,bufnum,BufRateScale.kr(bufnum)*rate,doneAction:2),0.2, pitch))})',
+    'SynthDef.new("shakePlayer",{|out, bufnum, mul = 1.0, gate = 1|Out.ar(out, EnvGen.kr(Env.asr(0.01,1,10,-1),gate,doneAction:2) * Line.kr(1.0,0.0,7.0) * PlayBuf.ar(2,bufnum,doneAction:2) * mul);})'
   ]
 }
