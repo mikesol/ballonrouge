@@ -13,10 +13,10 @@ var tops = require('./../tops/tops');
 var cap = s.nextNodeID();
 
 module.exports = function(top: number, verb: number, sc: SCHolder) {
-  if (verb === states.STOPPED || verb === states.PAUSED) {
+  if (verb === states.STOPPED || verb === states.PAUSED || verb === states.SHIT) {
     _.range(1, cap).forEach((n)=>sc.server.send.msg(['/n_free', n]));
   }
-  if (verb === states.STOPPED) {
+  if (verb === states.STOPPED || verb === states.SHIT) {
     currentSeq.stop();
   }
   if (verb === states.PAUSED) {
@@ -26,9 +26,9 @@ module.exports = function(top: number, verb: number, sc: SCHolder) {
     console.log("soft pausing currentSeq");
     currentSeq.softpause();
   }
-  console.log("top=" + top);
+  console.log("COP top=" + top+" state="+states.SHIT);
   currentSeq = tops[top] ? tops[top].scene || new EvSeq(new EventEmitter()) : currentSeq;
-  if (verb === states.STAGED) {
+  if (verb === states.STAGED || verb === states.SHIT) {
     console.log("playing " + top);
     // TODO: figure out a way to unsubscribe observables...this will probably in a memory leak
     Observable.fromEvent(tops[top].event || new EventEmitter(), 'sc')
