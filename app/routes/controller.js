@@ -2,6 +2,7 @@
 var express = require('express');
 var state = require('./../state/state');
 var tops = require('./../consts/scenes');
+var _ = require('lodash');
 
 
 var proddev = function(prod: string) {
@@ -18,7 +19,8 @@ var proddev = function(prod: string) {
           now: st.top,
           nowText: tops[st.top],
           states: require('./../state/states'),
-          nav: require('./../nav/nav')(st.top)
+          nav: require('./../nav/nav')(st.top),
+          sacre: _.sample(["baptême !", "câlisse !", "calvaire !", "ciboire !", "crisse !", "maudit !", "osti !", "simonaque !", "tabarnak !", "viarge !"])
         });
       }
     });
