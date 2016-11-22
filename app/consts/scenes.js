@@ -10,7 +10,6 @@ module.exports = [
   'ville',
   'stop ville',
   'cache-cache',
-  'la minute amicale',
   'dors mon p\'tit',
   'stop mon p\'tit',
   'tempête',
