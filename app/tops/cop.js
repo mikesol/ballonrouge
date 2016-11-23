@@ -32,6 +32,10 @@ module.exports = function(top: number, verb: number, sc: SCHolder) {
   currentSeq = tops[top] ? tops[top].scene || new EvSeq(new EventEmitter()) : currentSeq;
   if (verb === states.STAGED || verb === states.SHIT) {
     console.log("playing " + top);
+    if (verb === states.SHIT) {
+      // reset currentSeq
+      currentSeq.stop();
+    }
     // TODO: figure out a way to unsubscribe observables...this will probably in a memory leak
     Observable.fromEvent(tops[top].event || new EventEmitter(), 'sc')
       .subscribe(function(msg) {
