@@ -10,11 +10,13 @@ var currentSubscription = null;
 var Rx = require('rx');
 var Observable = Rx.Observable;
 var tops = require('./../tops/tops');
+var common = require('./../tops/common');
 var cap = s.nextNodeID();
 
 module.exports = function(top: number, verb: number, sc: SCHolder) {
   if (verb === states.STOPPED || verb === states.PAUSED || verb === states.SHIT) {
-    _.range(1, cap).forEach((n)=>sc.server.send.msg(['/n_free', n]));
+    //_.range(1, cap).forEach((n)=>sc.server.send.msg(['/n_free', n]));
+    sc.server.send.msg(['/g_freeAll', common.group]);
   }
   if (verb === states.STOPPED || verb === states.SHIT) {
     currentSeq.stop();
