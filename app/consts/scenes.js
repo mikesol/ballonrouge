@@ -14,5 +14,6 @@ module.exports = [
   'tempête',
   'jardin de lumières',
   'vole',
+  'fin vole',
   'saluons!'
 ];
