@@ -13,10 +13,11 @@ var mpqq_2end = require('./mpqq_2end')
 var storm = require('./storm')
 var garden = require('./garden')
 var final = require('./final')
-var finalend = require('./finalend')
+var finalstop = require('./finalstop')
+var exit = require('./exit')
 
 module.exports = [
   entry, entryend, swing, swingend, grab, city1,
   city1end, cross, mpqq_2, mpqq_2end,
-  storm, garden, final, finalend, {}
+  storm, garden, final, finalstop, exit, {}
 ];
