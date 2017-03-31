@@ -100,3 +100,15 @@ bells.aif filter=lfs diff=lfs merge=lfs -text
 light1.aif filter=lfs diff=lfs merge=lfs -text
 grab2.aif filter=lfs diff=lfs merge=lfs -text
 ride.aif filter=lfs diff=lfs merge=lfs -text
+sonnette0.aif filter=lfs diff=lfs merge=lfs -text
+sonnette1.aif filter=lfs diff=lfs merge=lfs -text
+sonnette10.aif filter=lfs diff=lfs merge=lfs -text
+sonnette11.aif filter=lfs diff=lfs merge=lfs -text
+sonnette2.aif filter=lfs diff=lfs merge=lfs -text
+sonnette3.aif filter=lfs diff=lfs merge=lfs -text
+sonnette4.aif filter=lfs diff=lfs merge=lfs -text
+sonnette5.aif filter=lfs diff=lfs merge=lfs -text
+sonnette6.aif filter=lfs diff=lfs merge=lfs -text
+sonnette7.aif filter=lfs diff=lfs merge=lfs -text
+sonnette8.aif filter=lfs diff=lfs merge=lfs -text
+sonnette9.aif filter=lfs diff=lfs merge=lfs -text
