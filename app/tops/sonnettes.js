@@ -62,6 +62,8 @@ for (var j = 0; j < scoreOffsets.length; j++) {
   }
 }
 
+common.airpopUp(50, 3, 20, 0, 4, scene);
+
 module.exports = {
   buffers: buffers,
   scene: scene,
