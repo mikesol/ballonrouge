@@ -69,8 +69,7 @@ module.exports = {
   synthdefs: [
     `SynthDef.new("doorbell",{arg out, bufnum, pitch, pan, depth;
 	var buffy, celing;
-	var dur=1.0/pitch;
-	var env = Env.new([1,1],[dur],'linear');
+	var env = Env.new([1,1],[BufDur.kr(bufnum)],'linear');
 	var envgen = EnvGen.kr(env, doneAction:2);
 	buffy = PlayBuf.ar(2,bufnum,BufRateScale.kr(bufnum)*pitch);
 	celing = 10000;
