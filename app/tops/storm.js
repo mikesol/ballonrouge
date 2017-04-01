@@ -29,7 +29,7 @@ var t = 10.05;
 scene.at('0.0s', ril, ["/n_set", mpqq_2.mpqq_2Id, "gate", 0.0]);
 
 var stormGateId = s.nextNodeID();
-scene.at('0.0s', ril, ["/s_new", "city1Gate", stormGateId, 0, common.group, "in", 6, "out", 0]);
+scene.at('0.0s', ril, ["/s_new", "city1Gate", stormGateId, 0, common.group, "in", 4, "out", 0]);
 
 var nTimes = 4;
 
@@ -42,7 +42,7 @@ for (var k = 0; k < 30; k++) {
     var base = 0.5 + (Math.random() * 0.9);
     for (var i = 0; i < 7 + (Math.random() * 20); i++) {
       scene.at(t + 's', ril, ["/s_new", "funWithFill", s.nextNodeID(), 0, common.group,
-        "out", 6, "bufnum", buffers[fillVal], "speed", base + (i * 0.05), "pan", pan, "vol", 0.2 + (Math.random() * 0.4), "hpfreq", 500 + (Math.random() * 1000)
+        "out", 4, "bufnum", buffers[fillVal], "speed", base + (i * 0.05), "pan", pan, "vol", 0.2 + (Math.random() * 0.4), "hpfreq", 500 + (Math.random() * 1000)
       ]);
       t += gap;
     }
