@@ -38,7 +38,7 @@ var groupCtr = 0;
 let groupL = 6;
 for (var j = 0; j < scoreOffsets.length; j++) {
   for (var i = 0; i < score.length; i++) {
-    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "city1CarHorn", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers[score[i].bell], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth]);
+    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "doorbell", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", buffers[score[i].bell], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth]);
     groupCtr += 1;
   }
 }

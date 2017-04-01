@@ -35,14 +35,18 @@ var score = [
   [TT(16), 1.1, 'sonnette10',0.3],
   [TT(16.01), 1.0, 'sonnette5',0.15],
   [TT(17), 1.2, 'sonnette10', 0.4],
-  [TT(16.01), 1.2, 'sonnette5', 0.1],
-  [TT(18), 1.0, 'sonnette8',0.7]
+  [TT(16.01), 1.1, 'sonnette5', 0.1],
+  [TT(18), 1.0, 'sonnette8',0.7],
+  [TT(19), 1.15, 'sonnette10',0.3],
+  [TT(19.01), 1.15, 'sonnette5',0.15],
+  [TT(20), 1.3, 'sonnette10', 0.4],
+  [TT(20.01), 1.3, 'sonnette5', 0.1],
 ].map((i) => ({
   offset: i[0],
   pitch: i[1],
   bell: i[2],
   pan: _.random(-1, 1, true),
-  depth: i[3]
+  depth: 0.8/*i[3]*/
 }));
 
 // repeat 3 times
@@ -53,7 +57,7 @@ var groupCtr = 0;
 let groupL = 6;
 for (var j = 0; j < scoreOffsets.length; j++) {
   for (var i = 0; i < score.length; i++) {
-    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "city1CarHorn", s.nextNodeID(), 0, common.group, "out", 6, "bufnum", buffers[score[i].bell], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth]);
+    scene.at((scoreOffsets[j] + score[i].offset) + 's', ril, ["/s_new", "doorbell", s.nextNodeID(), 0, common.group, "out", 0, "bufnum", buffers[score[i].bell], "pitch", score[i].pitch, "pan", score[i].pan, "depth", score[i].depth]);
     groupCtr += 1;
   }
 }
@@ -61,5 +65,17 @@ for (var j = 0; j < scoreOffsets.length; j++) {
 module.exports = {
   buffers: buffers,
   scene: scene,
-  event: event
+  event: event,
+  synthdefs: [
+    `SynthDef.new("doorbell",{arg out, bufnum, pitch, pan, depth;
+	var buffy, celing;
+	var dur=1.0/pitch;
+	var env = Env.new([1,1],[dur],'linear');
+	var envgen = EnvGen.kr(env, doneAction:2);
+	buffy = PlayBuf.ar(2,bufnum,BufRateScale.kr(bufnum)*pitch);
+	celing = 10000;
+	buffy = HPF.ar(buffy, celing * (1 - depth));
+	Out.ar(out,Pan2.ar(buffy*envgen, pan));
+})`,
+  ]
 }
